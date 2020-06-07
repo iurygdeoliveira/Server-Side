@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="">
+  <img src="https://github.com/iurygdeoliveira/Back-End/blob/master/CAPA%20PRINCIPAL.jpg">
 </p>
 
 ## Desenvolvedor (Developer):
@@ -14,6 +14,6 @@ Diversos Projetos Back-End (Various Back-End projects)
 
 ### NodeJS
 
-- Manipulação de Arquivos JSON (link aqui) (07/06/2020)
+- Manipulação de Arquivos JSON: https://github.com/iurygdeoliveira/Back-End/tree/master/NodeJS/Cidades%20e%20Estados (07/06/2020)
 
 ### PHP
