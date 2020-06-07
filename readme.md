@@ -10,8 +10,10 @@
 
 Diversos Projetos Back-End (Various Back-End projects)
 
-## Demonstração em Vídeo (Video Demo)
-
-> Link para playlist:
-
 ## Sumário dos Projetos (Summary of projects)
+
+### NodeJS
+
+- Manipulação de Arquivos JSON (link aqui) (07/06/2020)
+
+### PHP
