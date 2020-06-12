@@ -75,6 +75,8 @@ build/Release
 ExpressJS/node_modules/*
 jspm_packages/
 NodeJS/Cidades e Estados/node_modules/*
+NodeJS/Grades Control/node_modules/*
+
 
 # TypeScript v1 declaration files
 typings/

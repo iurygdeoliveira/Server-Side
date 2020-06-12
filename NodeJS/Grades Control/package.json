@@ -1,0 +1,19 @@
+{
+  "name": "grades-control",
+  "version": "1.0.0",
+  "description": "Controle de Notas de alunos",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Iury Gomes",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "moment": "^2.26.0",
+    "nodemon": "^2.0.4"
+  },
+  "type": "module"
+}
