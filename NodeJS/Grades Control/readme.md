@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/iurygdeoliveira/Back-End/blob/master/NodeJS/Cidades%20e%20Estados/img/Manipula%C3%A7%C3%A3o%20de%20Arquivos%20JSON.jpg">
+  <img src="https://github.com/iurygdeoliveira/Back-End/blob/master/NodeJS/Grades%20Control/source/storage/img/Capa.jpg">
 </p>
 
 ## Desenvolvedor (Developer):
@@ -16,9 +16,9 @@
 
 ## Demonstração em Vídeo (Video Demo)
 
-> Link para vídeo demonstrativo:
+> Link para vídeo demonstrativo: https://youtu.be/EtfS7a-UXTU
 
-> Demo video link:
+> Demo video link: https://youtu.be/EtfS7a-UXTU
 
 ## Objetivos
 
