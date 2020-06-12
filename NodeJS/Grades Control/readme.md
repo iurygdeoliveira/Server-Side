@@ -49,7 +49,7 @@ Uma grade deve possuir os campos abaixo:
 O arquivo grades.json será previamente fornecido com alguns registros inseridos, seus endpoints devem trabalhar considerando a existência deles, não devendo criar um arquivo limpo para utilização. A estrutura do arquivo é a seguinte:
 
 <p align="center">
-  <img src="img/EDes.png">
+  <img src="https://github.com/iurygdeoliveira/Back-End/blob/master/NodeJS/Grades%20Control/source/storage/img/EDes.png">
 </p>
 
 A propriedade nextId deve armazenar sempre o próximo id que será utilizado na criação de uma nova grade. A propriedade grades possui um array com várias grades, cada uma sendo representada por um objeto com os campos descritos anteriormente.
