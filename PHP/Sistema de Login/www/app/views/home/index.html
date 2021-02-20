@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+{% include "home/partials/head.html" %}
+
+<body>
+
+    <!-- HEADER -->
+    {% include "home/partials/header.html" %}
+
+    <!-- CONTENT -->
+    {% block content %}
+    <h2>Home</h2>
+    <a href="{{link_login}}">Logar no Admin</a>
+    {% endblock %}
+
+    <!-- FOOTER -->
+    {% include "home/partials/footer.html" %}
+
+
+</body>
+
+</html>
