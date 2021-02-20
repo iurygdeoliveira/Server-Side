@@ -5,7 +5,7 @@
 ## SOBRE
 
 <p>
-Este sistema de login, possui como <b>principal objetivo</b>,
+Este projeto, possui como <b>principal objetivo</b>,
 realizar uma demonstração didática em como implementar um sistema de login. 
 
 A ideia original aqui, não é propor um sistema de login para ser usado em ambiente de produção, mas exemplificar na prática como codificar um sistema utilizando princípios de boas práticas de programação, como clean code, SOLID, orientação a objetos entre outros. Porém os princípios utilizados aqui, podem sim ser aplicados em um sistema de produção real, desde que você faça as devidas adaptações.
@@ -73,7 +73,7 @@ Abraços !
 
 ## COMO EXECUTAR
 
-Para executar este código é necessário realizar o seguintes passas
+Para executar este código é necessário realizar os seguintes passos
 
 1º Instalar o docker
 
@@ -101,6 +101,11 @@ o arquivo docker-compose.yml e rodar o comando
 
 `docker-compose -p PHP up --force-recreate --remove-orphans`
 <br><small>obs.: É apenas uma sugestão de comando</small>
+
+6º Executar o comando abaixo
+
+Acessar a pasta www e rodar
+`composer update`
 
 ## VIDEO DEMO
 

@@ -3,6 +3,9 @@
 
 ## MySQL ##
 PHP/Sistema de Login/docker/mysql
+,
+## Vendor ##
+PHP/Sistema de Login/www/vendor
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
