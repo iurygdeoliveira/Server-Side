@@ -1,4 +1,5 @@
 <div class="content-wrapper">
+    {{flashes['backend']['message']|raw}}
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -74,15 +75,15 @@
         <!-- /.card -->
 
         <!-- Modal Cadastrar Usuário -->
-        {% include "admin/partials/userModalCadastrar.html" %}
+        {% include "adminuser/partials/userModalCadastrar.html" %}
         <!-- ./Modal Cadastrar Usuário -->
 
         <!-- Modal Atualizar Usuário -->
-        {% include "admin/partials/userModalAtualizar.html" %}
+        {% include "adminuser/partials/userModalAtualizar.html" %}
         <!-- ./Modal Atualizar Usuário -->
 
         <!-- Modal Deletar Usuário -->
-        {% include "admin/partials/userModalDeletar.html" %}
+        {% include "adminuser/partials/userModalDeletar.html" %}
         <!-- ./Modal Deletar Usuário -->
     </section>
     <!-- /.content -->

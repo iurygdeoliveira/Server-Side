@@ -44,6 +44,7 @@ Abraços !
 -   jQuery
 -   Boostrap 4.1
 -   Dashboard AdminLTE
+-   Font Awesome
 
 </p>
 
@@ -91,8 +92,7 @@ Para executar este código é necessário realizar os seguintes passos
 
 4º Realizar o clone do repositório
 
-Faça o download do código que está dentro da pasta [Sistema de Login](https://github.com/iurygdeoliveira/Server-Side/tree/master/PHP/Sistema%20de%20Login) para o seu computador. Além disso, se tiver familiaridade pode utilizaro git clone para clonar o repositório, mas se assim o fizer irá clonar todo o repositório incluindo outros
-projetos que não possuem relação com o Sistema de Login.
+Faça o download do código que está dentro da pasta [Sistema de Login](https://github.com/iurygdeoliveira/Server-Side/tree/master/PHP/Sistema%20de%20Login) para o seu computador. Além disso, se tiver familiaridade pode utilizaro git clone para clonar o repositório, mas se assim o fizer irá clonar todo o repositório incluindo outros projetos que não possuem relação com o Sistema de Login.
 
 5º Executar o comando abaixo
 

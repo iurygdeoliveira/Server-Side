@@ -16,6 +16,9 @@
 <script src="./assets/js/buttons.html5.min.js"></script>
 <script src="./assets/js/buttons.print.min.js"></script>
 <script src="./assets/js/buttons.colVis.min.js"></script>
+<!-- jquery-validation -->
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/additional-methods.min.js"></script>
 {% endif %}
 <!-- AdminLTE App -->
 <script src="./assets/js/adminlte.min.js"></script>
@@ -47,22 +50,36 @@
     $(function () {
         $('#formCadastrarUsuario').validate({
             rules: {
+                name: {
+                    required: true
+                },
                 email: {
                     required: true,
                     email: true,
                 },
-                senha: {
+                pass: {
+                    required: true,
+                    minlength: 5
+                },
+                confirm: {
                     required: true,
                     minlength: 5
                 }
             },
             messages: {
+                name: {
+                    required: "Por favor informe um nome"
+                },
                 email: {
                     required: "Por favor informe um endereço de email",
                     email: "Por favor informar um endereço de email válido"
                 },
-                senha: {
+                pass: {
                     required: "Por favor informe uma senha",
+                    minlength: "A senha deve ter no mínimo 5 caracteres"
+                },
+                confirm: {
+                    required: "Por favor confirme a senha",
                     minlength: "A senha deve ter no mínimo 5 caracteres"
                 }
             },

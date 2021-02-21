@@ -11,6 +11,7 @@ use Slim\Middleware\MethodOverrideMiddleware;
 use app\controllers\Home;
 use app\controllers\Login;
 use app\controllers\Admin;
+use app\controllers\AdminUser;
 use app\controllers\Redirect;
 
 $app = AppFactory::create();
@@ -26,7 +27,10 @@ $app->post('/access', Login::class . ":access");
 // ADMIN ROUTES
 $app->post('/admin', Admin::class . ":dashboard");
 $app->get('/admin', Admin::class . ":dashboard");
-$app->get('/user', Admin::class . ":user");
+
+// USER ROUTES
+$app->get('/user', AdminUser::class . ":user");
+$app->post('/addUser', AdminUser::class . ":addUser");
 
 // REDIRECT ROUTES
 $app->get('/redirecionar', Redirect::class . ":index");
@@ -34,12 +38,9 @@ $app->get('/redirecionar', Redirect::class . ":index");
 // ERROR ROUTES
 $app->get('/erro', Home::class . ":error");
 
-
-
 // Add Override verbs http
 $methodOverrideMiddleware = new MethodOverrideMiddleware();
 $app->add($methodOverrideMiddleware);
-
 
 // ROUTES NOT FOUND
 $app->map(

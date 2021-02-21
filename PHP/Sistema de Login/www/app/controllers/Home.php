@@ -30,7 +30,7 @@ class Home extends Base
             $this->setView($nameView),
             [
                 'title' => 'Erro',
-                'link_home' => url()
+                'link_back' => url_back() // Retornando a pagina anterior
             ]
 
         );

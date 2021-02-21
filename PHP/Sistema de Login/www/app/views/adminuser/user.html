@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-{% include "admin/partials/head.html" %}
+{% include "adminuser/partials/head.html" %}
 
 <body class="hold-transition sidebar-mini">
 
@@ -11,19 +11,19 @@
     <div class="wrapper">
 
         <!-- header -->
-        {% include "admin/partials/header.html" %}
+        {% include "adminuser/partials/header.html" %}
         <!-- /.header -->
 
         <!-- sidebar -->
-        {% include "admin/partials/sidebar.html" %}
+        {% include "adminuser/partials/sidebar.html" %}
         <!-- /.sidebar -->
 
         <!-- content -->
-        {% include "admin/partials/userContent.html" %}
+        {% include "adminuser/partials/content.html" %}
         <!-- /.content -->
 
         <!-- Content Footer. Contains footer page content -->
-        {% include "admin/partials/footer.html" %}
+        {% include "adminuser/partials/footer.html" %}
         <!-- /.content-footer -->
 
     </div>
@@ -32,7 +32,7 @@
     {% endblock %}
 
     <!-- SCRIPTS -->
-    {% include "admin/partials/scripts.html" %}
+    {% include "adminuser/partials/scripts.html" %}
 
 </body>
 
