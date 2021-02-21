@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '6bb762c7d9691d06de4f5f78f9ef996cd5d7dbb2',
+    'reference' => '8cda52c6316ba5816cab8ded675cc852666dd9e9',
     'name' => 'iuryprof/estudos_de_php',
   ),
   'versions' => 
@@ -54,12 +54,12 @@ private static $installed = array (
     ),
     'doctrine/annotations' => 
     array (
-      'pretty_version' => '1.11.1',
-      'version' => '1.11.1.0',
+      'pretty_version' => '1.12.0',
+      'version' => '1.12.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ce77a7ba1770462cd705a91a151b6c3746f9c6ad',
+      'reference' => 'ebec9b1708c95d7602245c8172773f6b4e0c3be1',
     ),
     'doctrine/lexer' => 
     array (
@@ -104,7 +104,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '6bb762c7d9691d06de4f5f78f9ef996cd5d7dbb2',
+      'reference' => '8cda52c6316ba5816cab8ded675cc852666dd9e9',
     ),
     'league/csv' => 
     array (

@@ -1,0 +1,51 @@
+<script>
+    $(function () {
+        $('#formCadastrarUsuario').validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                pass: {
+                    required: true,
+                    minlength: 5
+                },
+                confirm: {
+                    required: true,
+                    minlength: 5
+                }
+            },
+            messages: {
+                name: {
+                    required: "Por favor informe um nome"
+                },
+                email: {
+                    required: "Por favor informe um endereço de email",
+                    email: "Por favor informar um endereço de email válido"
+                },
+                pass: {
+                    required: "Por favor informe uma senha",
+                    minlength: "A senha deve ter no mínimo 5 caracteres"
+                },
+                confirm: {
+                    required: "Por favor confirme a senha",
+                    minlength: "A senha deve ter no mínimo 5 caracteres"
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.input-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>

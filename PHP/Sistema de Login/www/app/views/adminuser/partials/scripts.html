@@ -19,6 +19,8 @@
 <!-- jquery-validation -->
 <script src="./assets/js/jquery.validate.min.js"></script>
 <script src="./assets/js/additional-methods.min.js"></script>
+<!-- toastr messages -->
+<script src="./assets/js/toastr.min.js"></script>
 {% endif %}
 <!-- AdminLTE App -->
 <script src="./assets/js/adminlte.min.js"></script>
@@ -29,72 +31,7 @@
 
 {% if user == true %}
 <!-- Page specific script -->
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
-</script>
-<script>
-    $(function () {
-        $('#formCadastrarUsuario').validate({
-            rules: {
-                name: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true,
-                },
-                pass: {
-                    required: true,
-                    minlength: 5
-                },
-                confirm: {
-                    required: true,
-                    minlength: 5
-                }
-            },
-            messages: {
-                name: {
-                    required: "Por favor informe um nome"
-                },
-                email: {
-                    required: "Por favor informe um endereço de email",
-                    email: "Por favor informar um endereço de email válido"
-                },
-                pass: {
-                    required: "Por favor informe uma senha",
-                    minlength: "A senha deve ter no mínimo 5 caracteres"
-                },
-                confirm: {
-                    required: "Por favor confirme a senha",
-                    minlength: "A senha deve ter no mínimo 5 caracteres"
-                }
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.input-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-    });
-</script>
+{% include "adminuser/partials/scriptsDataTables.html" %}
+{% include "adminuser/partials/scriptsFormCadastrarUsuario.html" %}
+{% include "adminuser/partials/scriptsToastrMessages.html" %}
 {% endif %}

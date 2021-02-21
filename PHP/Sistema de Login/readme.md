@@ -92,7 +92,7 @@ Para executar este código é necessário realizar os seguintes passos
 
 4º Realizar o clone do repositório
 
-Faça o download do código que está dentro da pasta [Sistema de Login](https://github.com/iurygdeoliveira/Server-Side/tree/master/PHP/Sistema%20de%20Login) para o seu computador. Além disso, se tiver familiaridade pode utilizaro git clone para clonar o repositório, mas se assim o fizer irá clonar todo o repositório incluindo outros projetos que não possuem relação com o Sistema de Login.
+Faça o download do código que está dentro da pasta [Sistema de Login](https://github.com/iurygdeoliveira/Server-Side/tree/master/PHP/Sistema%20de%20Login) para o seu computador. Além disso, se tiver familiaridade pode utilizar o git clone para clonar o repositório, mas atente-se que irá clonar todo o repositório incluindo outros projetos que não possuem relação com o este.
 
 5º Executar o comando abaixo
 
@@ -104,9 +104,10 @@ o arquivo docker-compose.yml e rodar o comando
 
 6º Executar o comando abaixo
 
-Acessar a pasta www e rodar
+Acessar a pasta www e rodar: 
 `composer update`
 
+7° Abrir o navegador no endereço de localhost
 ## VIDEO DEMO
 
 Em breve ...

@@ -56,34 +56,35 @@ class AdminUser extends Admin
         $error = required(['name', 'email', 'pass', 'confirm']);
 
         if ($error) {
-            $message = $this->flashMessage('Campo obrigatório não informado', 'danger');
+            $message = "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
             Flash::set('backend', $message);
             return redirect($response, 'user');
         }
 
-        // $email = filterInput($_POST['email']);
-        // $senha = filterInput($_POST['senha']);
+        $name = filterInput($_POST['name']);
+        $email = filterInput($_POST['email']);
+        $pass = filterInput($_POST['pass']);
+        $confirm = filterInput($_POST['confirm']);
 
-        // //Validando formato de email
-        // if (!is_email($email)) {
-        //     $message = $this->flashMessage('Email informado inválido', 'danger');
-        //     Flash::set('backend', $message);
-        //     return redirect($response, 'login');
-        // }
+        //Validando formato de email
+        if (!is_email($email)) {
+            $message = $this->flashMessage('Email informado inválido', 'danger');
+            Flash::set('backend', $message);
+            return redirect($response, 'user');
+        }
 
-        // $user = new User();
+        $user = new User();
+        $result = $user->emailExist($email);
 
-        // $result = $user->emailExist($email);
-        // $verifiedPass = password_verify($senha, (empty($result) ? '' : $result->pass));
-
-        // if (!$result || !$verifiedPass) {
-
-        //     $message = $this->flashMessage('Login inválido', 'danger');
-        //     Flash::set('backend', $message);
-        //     return redirect($response, 'login');
-        // } else {
-        //     // Login efetuado
-        //     return redirect($response, 'admin');
-        // }
+        if ($result) {
+            $message = $this->flashMessage('Email já cadastrado', 'danger');
+            Flash::set('backend', $message);
+            return redirect($response, 'user');
+        } else {
+            // realizar registro do email
+            $message = "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
+            Flash::set('backend', $message);
+            return redirect($response, 'user');
+        }
     }
 }

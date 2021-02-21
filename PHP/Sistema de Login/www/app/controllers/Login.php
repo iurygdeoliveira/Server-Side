@@ -12,7 +12,7 @@ class Login extends Base
     public function index($request, $response)
     {
 
-        $flashes = Flash::getAll();
+
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);
         return $this->getTwig()->render(
             $response,
@@ -20,7 +20,7 @@ class Login extends Base
             [
                 'sistema' => 'teste',
                 'title' => 'Login',
-                'flashes' => $flashes,
+                'flash' => getFlash('msg'),
                 'link_acesso' => url("access"),
                 'link_forgot' => url("recuperar")
             ]
@@ -50,8 +50,7 @@ class Login extends Base
         $error = required(['email', 'senha']);
 
         if ($error) {
-            $message = $this->flashMessage('Campo obrigatório não informado', 'danger');
-            Flash::set('backend', $message);
+            setFlash("msg", "Campo obrigatório não informado");
             return redirect($response, 'login');
         }
 
@@ -60,8 +59,8 @@ class Login extends Base
 
         //Validando formato de email
         if (!is_email($email)) {
-            $message = $this->flashMessage('Email informado inválido', 'danger');
-            Flash::set('backend', $message);
+            // $message = $this->flashMessage('Email informado inválido', 'danger');
+            // Flash::set('backend', $message);
             return redirect($response, 'login');
         }
 
@@ -72,8 +71,8 @@ class Login extends Base
 
         if (!$result || !$verifiedPass) {
 
-            $message = $this->flashMessage('Login inválido', 'danger');
-            Flash::set('backend', $message);
+            // $message = $this->flashMessage('Login inválido', 'danger');
+            // Flash::set('backend', $message);
             return redirect($response, 'login');
         } else {
             // Login efetuado

@@ -39,9 +39,7 @@ function required(array $fields): bool
     return $error;
 }
 
-
 function filterInput($field)
 {
-    var_dump($field);
     return filter_var($field, FILTER_SANITIZE_STRING);
 }
