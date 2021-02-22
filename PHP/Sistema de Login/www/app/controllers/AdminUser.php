@@ -45,10 +45,6 @@ class AdminUser extends Admin
 
     public function addUser($request, $response, $args)
     {
-        // Ativando classes específicas do CSS para renderizar os estilos na sidebar
-        // $this->data += [
-
-        // ];
 
         // true = campos preenchidos
         // false = campo obrigatório vazio
@@ -67,6 +63,12 @@ class AdminUser extends Admin
         //Validando formato de email
         if (!is_email($email)) {
             setFlash("error", "Email informado inválido");
+            return redirect($response, 'user');
+        }
+
+        //Confirmando se pass e confirm são iguais
+        if ($pass !== $confirm) {
+            setFlash("error", "A senha e a confirmação devem ser iguais");
             return redirect($response, 'user');
         }
 
