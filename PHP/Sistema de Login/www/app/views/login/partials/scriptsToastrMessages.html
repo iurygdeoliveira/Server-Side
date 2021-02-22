@@ -16,8 +16,8 @@
         "hideMethod": "fadeOut"
     }
 </script>
-{% if flash != '' %}
+{% if flash.type == 'error' %}
 <script>
-    toastr.error("{{flash}}");
+    toastr.error("{{flash.message}}");
 </script>
 {% endif %}

@@ -12,7 +12,6 @@ class Login extends Base
     public function index($request, $response)
     {
 
-
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);
         return $this->getTwig()->render(
             $response,
@@ -20,7 +19,7 @@ class Login extends Base
             [
                 'sistema' => 'teste',
                 'title' => 'Login',
-                'flash' => getFlash('msg'),
+                'flash' => getFlash(),
                 'link_acesso' => url("access"),
                 'link_forgot' => url("recuperar")
             ]
@@ -50,7 +49,7 @@ class Login extends Base
         $error = required(['email', 'senha']);
 
         if ($error) {
-            setFlash("msg", "Campo obrigatório não informado");
+            setFlash("error", "Campo obrigatório não informado");
             return redirect($response, 'login');
         }
 
@@ -59,8 +58,7 @@ class Login extends Base
 
         //Validando formato de email
         if (!is_email($email)) {
-            // $message = $this->flashMessage('Email informado inválido', 'danger');
-            // Flash::set('backend', $message);
+            setFlash("error", "Email informado inválido");
             return redirect($response, 'login');
         }
 
@@ -71,8 +69,7 @@ class Login extends Base
 
         if (!$result || !$verifiedPass) {
 
-            // $message = $this->flashMessage('Login inválido', 'danger');
-            // Flash::set('backend', $message);
+            setFlash("error", "Login Inválido");
             return redirect($response, 'login');
         } else {
             // Login efetuado

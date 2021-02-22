@@ -1,9 +1,9 @@
 <script>
     toastr.options = {
-        "closeButton": false,
+        "closeButton": true,
         "debug": false,
         "newestOnTop": false,
-        "progressBar": false,
+        "progressBar": true,
         "positionClass": "toast-top-right",
         "preventDuplicates": true,
         "showDuration": "300",
@@ -16,3 +16,15 @@
         "hideMethod": "fadeOut"
     }
 </script>
+
+{% if flash.type == 'error' %}
+<script>
+    toastr.error("{{flash.message}}");
+</script>
+{% endif %}
+
+{% if flash.type == 'success' %}
+<script>
+    toastr.success("{{flash.message}}");
+</script>
+{% endif %}

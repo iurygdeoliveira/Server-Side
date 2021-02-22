@@ -45,6 +45,7 @@ Abraços !
 -   Boostrap 4.1
 -   Dashboard AdminLTE
 -   Font Awesome
+-   Flash messages com toastr framework
 
 </p>
 

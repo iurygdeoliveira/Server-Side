@@ -23,7 +23,6 @@ class AdminUser extends Admin
 
     public function user($request, $response)
     {
-        $flashes = Flash::getAll();
         $user = new User();
 
         // Obtendo usuários registrados no banco de dados
@@ -31,7 +30,7 @@ class AdminUser extends Admin
 
         // Ativando classes específicas do CSS para renderizar os estilos na sidebar
         $this->data += [
-            'flashes' => $flashes,
+            'flash' => getFlash(),
             'users' => $result // Usuários registrados no banco
 
         ];
@@ -50,14 +49,13 @@ class AdminUser extends Admin
         // $this->data += [
 
         // ];
-        var_dump($_POST);
+
         // true = campos preenchidos
         // false = campo obrigatório vazio
         $error = required(['name', 'email', 'pass', 'confirm']);
 
         if ($error) {
-            $message = "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
-            Flash::set('backend', $message);
+            setFlash("error", "Campo obrigatório não informado");
             return redirect($response, 'user');
         }
 
@@ -68,8 +66,7 @@ class AdminUser extends Admin
 
         //Validando formato de email
         if (!is_email($email)) {
-            $message = $this->flashMessage('Email informado inválido', 'danger');
-            Flash::set('backend', $message);
+            setFlash("error", "Email informado inválido");
             return redirect($response, 'user');
         }
 
@@ -77,13 +74,11 @@ class AdminUser extends Admin
         $result = $user->emailExist($email);
 
         if ($result) {
-            $message = $this->flashMessage('Email já cadastrado', 'danger');
-            Flash::set('backend', $message);
+            setFlash("error", "Email já cadastrado");
             return redirect($response, 'user');
         } else {
             // realizar registro do email
-            $message = "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
-            Flash::set('backend', $message);
+            setFlash("success", "Email Cadastrado");
             return redirect($response, 'user');
         }
     }
