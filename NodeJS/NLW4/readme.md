@@ -28,7 +28,7 @@ Acompanhar a NLW4 e exercitar a criação de uma API, criando endpoints utilizan
 
 
 
-## Instalação das dependências
+## Lista de dependências
 
 1º yarn init
 
@@ -41,3 +41,15 @@ Acompanhar a NLW4 e exercitar a criação de uma API, criando endpoints utilizan
 5º yarn tsc --init
 
 6º yarn add ts-node-dev -D 
+
+7º yarn add typeorm reflect-metadata
+
+8º yarn add sqlite3
+
+9º yarn add uuid
+
+10º yarn add @types/uuid -D
+
+# Criação das Migrations
+
+yarn typeorm migration:create -n CreateUsers
