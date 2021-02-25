@@ -23,6 +23,10 @@ trait Connection
 
             R::getDatabaseAdapter()->getDatabase()->stringifyFetches(FALSE);
             R::getDatabaseAdapter()->getDatabase()->getPDO()->setAttribute(PDO::ATTR_EMULATE_PREPARES, TRUE);
+
+            // Congelando o moodel, para evitar que o ORM
+            // faça modificações no schema do banco
+            R::freeze(TRUE);
         } catch (RedException $e) {
             $this->error = $e->getMessage();
             return false;

@@ -59,7 +59,7 @@ Abraços !
 -   Slim 4
 -   Twig PHP
 -   MySQL
--   
+   
 </p>
 
 ## FUNCIONALIDADE IMPLEMENTADAS ATÉ AGORA

@@ -48,6 +48,7 @@ class AdminUser extends Admin
 
         // true = campos preenchidos
         // false = campo obrigatório vazio
+        // Verificando Campos obrigatórios
         $error = required(['name', 'email', 'pass', 'confirm']);
 
         if ($error) {
@@ -55,6 +56,7 @@ class AdminUser extends Admin
             return redirect($response, 'user');
         }
 
+        // Filtrando Dados
         $name = filterInput($_POST['name']);
         $email = filterInput($_POST['email']);
         $pass = filterInput($_POST['pass']);
@@ -80,8 +82,24 @@ class AdminUser extends Admin
             return redirect($response, 'user');
         } else {
             // realizar registro do email
-            setFlash("success", "Email Cadastrado");
-            return redirect($response, 'user');
+            $result = $user->insertOne([
+                'name' => $name,
+                'email' => $email,
+                'pass' => passwd($pass)
+            ]);
+
+            if (!$result) {
+                setFlash("error", $user->getError());
+                return redirect($response, 'user');
+            } else {
+                setFlash("success", "Usuário cadastrado");
+                return redirect($response, 'user');
+            }
         }
+    }
+
+    public function rmUser($request, $response, $args)
+    {
+        var_dump($args);
     }
 }

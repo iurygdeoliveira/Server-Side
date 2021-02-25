@@ -9,6 +9,8 @@ use app\traits\Create;
 use app\traits\Read;
 use app\traits\Update;
 use app\traits\Delete;
+use RedBeanPHP\R;
+
 
 class User
 {
@@ -45,5 +47,22 @@ class User
     {
         $result = $this->selectAll('user');
         return (empty($result) ? false : $result);
+    }
+
+    public function insertOne(array $data)
+    {
+        $result = $this->insert('user', $data, 1);
+        return (empty($result) ? false : $result);
+    }
+
+    public function deleteByID(int $id)
+    {
+        $bean = $this->selectOne('user', 'id = ?', strval($id));
+        if ($bean instanceof R) {
+            $result = $this->delete($bean);
+            return (empty($result) ? false : $result);
+        } else {
+            return false;
+        }
     }
 }

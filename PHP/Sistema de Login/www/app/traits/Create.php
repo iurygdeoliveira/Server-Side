@@ -9,7 +9,7 @@ use RedBeanPHP\RedException;
 
 trait Create
 {
-    public function insert(string $table, array $data, int $count = 1)
+    public function insert(string $table, array $data, int $count)
     {
 
         try {

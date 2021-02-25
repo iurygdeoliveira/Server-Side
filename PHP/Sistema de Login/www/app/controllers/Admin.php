@@ -20,6 +20,8 @@ class Admin extends Base
             'link_admin' => url('admin'),
             'link_user' => url('user'),
             'link_home' => url(),
+            'link_exit' => url('exit'),
+            'user_name' => $_SESSION['user']['name']
         ];
     }
 
@@ -38,5 +40,12 @@ class Admin extends Base
             $this->setView($nameView),
             $this->data
         );
+    }
+
+    public function exit($request, $response)
+    {
+        unset($_SESSION['user']['name']);
+
+        return redirect($response, "/");
     }
 }

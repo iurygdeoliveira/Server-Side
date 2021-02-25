@@ -73,7 +73,8 @@ class Login extends Base
             return redirect($response, 'login');
         } else {
             // Login efetuado
-            return redirect($response, 'admin');
+            $_SESSION['user']['name'] = $result->name;
+            return redirect($response, "admin");
         }
     }
 }

@@ -26,10 +26,12 @@ $app->post('/access', Login::class . ":access");
 // ADMIN ROUTES
 $app->post('/admin', Admin::class . ":dashboard");
 $app->get('/admin', Admin::class . ":dashboard");
+$app->get('/exit', Admin::class . ":exit");
 
 // ADMIN USER ROUTES
 $app->get('/user', AdminUser::class . ":user");
 $app->post('/addUser', AdminUser::class . ":addUser");
+$app->post('/rmUser', AdminUser::class . ":rmUser");
 
 // ERROR ROUTES
 $app->get('/erro', Home::class . ":error");
