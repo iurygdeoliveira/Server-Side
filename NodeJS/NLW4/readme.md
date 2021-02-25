@@ -50,6 +50,14 @@ Acompanhar a NLW4 e exercitar a criação de uma API, criando endpoints utilizan
 
 10º yarn add @types/uuid -D
 
+11º yarn add jest @types/jest -D
+
+12º yarn jest --init
+
+13º yarn add ts-jest -D
+
+14º yarn add supertest @type/supertest -D
+
 # Criação das Migrations
 
 yarn typeorm migration:create -n CreateUsers
