@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use app\classes\Flash;
 use app\models\User;
 
 class AdminUser extends Admin
