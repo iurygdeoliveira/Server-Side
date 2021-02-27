@@ -16,7 +16,8 @@ class AdminUser extends Admin
             'screen' => 'Usuário',
             'dashboard' => false,
             'user' => true,
-            'link_addUser' => url("addUser") // Rota para adicionar novos usuários
+            'link_addUser' => url("addUser"), // Rota para adicionar novos usuários
+            'link_rmUser' => url("rmUser") // Rota para remover usuários
         ];
     }
 
@@ -80,7 +81,7 @@ class AdminUser extends Admin
             setFlash("error", "Email já cadastrado");
             return redirect($response, 'user');
         } else {
-            // realizar registro do email
+            // realizar registro do usuario
             $result = $user->insertOne([
                 'name' => $name,
                 'email' => $email,
@@ -97,8 +98,37 @@ class AdminUser extends Admin
         }
     }
 
-    public function rmUser($request, $response, $args)
+    public function rmUser($request, $response)
     {
-        var_dump($args);
+        // true = campos preenchidos
+        // false = campo obrigatório vazio
+        // Verificando Campos obrigatórios
+        $error = required(['id', 'email', 'name']);
+
+        if ($error) {
+            setFlash("error", "Campo obrigatório não informado");
+            return redirect($response, 'user');
+        }
+
+        // Filtrando Dados
+        $id = filterInput($_POST['id']);
+        $email = filterInput($_POST['email']);
+
+        //Validando formato de email
+        if (!is_email($email)) {
+            setFlash("error", "Email informado inválido");
+            return redirect($response, 'user');
+        }
+
+        $user = new User();
+        $result = $user->deleteByID($id);
+
+        if (!$result) {
+            setFlash("error", $user->getError());
+            return redirect($response, 'user');
+        } else {
+            setFlash("success", "Usuário Deletado");
+            return redirect($response, 'user');
+        }
     }
 }

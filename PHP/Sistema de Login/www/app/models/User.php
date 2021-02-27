@@ -55,10 +55,10 @@ class User
         return (empty($result) ? false : $result);
     }
 
-    public function deleteByID(int $id)
+    public function deleteByID(string $id)
     {
-        $bean = $this->selectOne('user', 'id = ?', strval($id));
-        if ($bean instanceof R) {
+        $bean = $this->selectOne('user', 'id = ?', $id);
+        if (!empty($bean)) {
             $result = $this->delete($bean);
             return (empty($result) ? false : $result);
         } else {

@@ -151,20 +151,21 @@ class Facade
 	 *
 	 * @return array
 	 */
-	private static function query( $method, $sql, $bindings )
+	private static function query($method, $sql, $bindings)
 	{
-		if ( !self::$redbean->isFrozen() ) {
+		if (!self::$redbean->isFrozen()) {
 			try {
-				$rs = Facade::$adapter->$method( $sql, $bindings );
-			} catch ( SQLException $exception ) {
-				if ( self::$writer->sqlStateIn( $exception->getSQLState(),
+				$rs = Facade::$adapter->$method($sql, $bindings);
+			} catch (SQLException $exception) {
+				if (self::$writer->sqlStateIn(
+					$exception->getSQLState(),
 					array(
 						QueryWriter::C_SQLSTATE_NO_SUCH_COLUMN,
-						QueryWriter::C_SQLSTATE_NO_SUCH_TABLE )
-					,$exception->getDriverDetails()
-					)
-				) {
-					return ( $method === 'getCell' ) ? NULL : array();
+						QueryWriter::C_SQLSTATE_NO_SUCH_TABLE
+					),
+					$exception->getDriverDetails()
+				)) {
+					return ($method === 'getCell') ? NULL : array();
 				} else {
 					throw $exception;
 				}
@@ -172,7 +173,7 @@ class Facade
 
 			return $rs;
 		} else {
-			return Facade::$adapter->$method( $sql, $bindings );
+			return Facade::$adapter->$method($sql, $bindings);
 		}
 	}
 
@@ -185,7 +186,7 @@ class Facade
 	 *
 	 * @param boolean $hybrid
 	 */
-	public static function setAllowHybridMode( $hybrid )
+	public static function setAllowHybridMode($hybrid)
 	{
 		$old = self::$allowHybridMode;
 		self::$allowHybridMode = $hybrid;
@@ -226,12 +227,13 @@ class Facade
 	 */
 	public static function testConnection()
 	{
-		if ( !isset( self::$adapter ) ) return FALSE;
+		if (!isset(self::$adapter)) return FALSE;
 
 		$database = self::$adapter->getDatabase();
 		try {
 			@$database->connect();
-		} catch ( \Exception $e ) {}
+		} catch (\Exception $e) {
+		}
 		return $database->isConnected();
 	}
 
@@ -270,14 +272,14 @@ class Facade
 	 *
 	 * @return ToolBox
 	 */
-	public static function setup( $dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
+	public static function setup($dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array())
 	{
-		if ( is_null( $dsn ) ) {
+		if (is_null($dsn)) {
 			$dsn = 'sqlite:' . DIRECTORY_SEPARATOR . sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'red.db';
 		}
 
-		self::addDatabase( 'default', $dsn, $username, $password, $frozen, $partialBeans, $options );
-		self::selectDatabase( 'default' );
+		self::addDatabase('default', $dsn, $username, $password, $frozen, $partialBeans, $options);
+		self::selectDatabase('default');
 
 		return self::$toolbox;
 	}
@@ -307,9 +309,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function setNarrowFieldMode( $mode )
+	public static function setNarrowFieldMode($mode)
 	{
-		AQueryWriter::setNarrowFieldMode( $mode );
+		AQueryWriter::setNarrowFieldMode($mode);
 	}
 
 	/**
@@ -324,7 +326,7 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function setAllowFluidTransactions( $mode )
+	public static function setAllowFluidTransactions($mode)
 	{
 		self::$allowFluidTransactions = $mode;
 	}
@@ -341,10 +343,10 @@ class Facade
 	 *
 	 * @return boolean
 	 */
-	public static function useISNULLConditions( $mode )
+	public static function useISNULLConditions($mode)
 	{
 		self::getWriter()->flushCache(); /* otherwise same queries might fail (see Unit test XNull) */
-		return AQueryWriter::useISNULLConditions( $mode );
+		return AQueryWriter::useISNULLConditions($mode);
 	}
 
 	/**
@@ -377,9 +379,9 @@ class Facade
 	 *
 	 * @return mixed
 	 */
-	public static function transaction( $callback )
+	public static function transaction($callback)
 	{
-		return Transaction::transaction( self::$adapter, $callback );
+		return Transaction::transaction(self::$adapter, $callback);
 	}
 
 	/**
@@ -404,10 +406,10 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function addDatabase( $key, $dsn, $user = NULL, $pass = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
+	public static function addDatabase($key, $dsn, $user = NULL, $pass = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array())
 	{
-		if ( isset( self::$toolboxes[$key] ) ) {
-			throw new RedException( 'A database has already been specified for this key.' );
+		if (isset(self::$toolboxes[$key])) {
+			throw new RedException('A database has already been specified for this key.');
 		}
 
 		self::$toolboxes[$key] = self::createToolbox($dsn, $user, $pass, $frozen, $partialBeans, $options);
@@ -415,9 +417,9 @@ class Facade
 
 	/**
 	 * Creates a toolbox. This method can be called if you want to use redbean non-static.
-   * It has the same interface as R::setup(). The createToolbx() method can be called
-   * without any arguments, in this case it will try to create a SQLite database in
-   * /tmp called red.db (this only works on UNIX-like systems).
+	 * It has the same interface as R::setup(). The createToolbx() method can be called
+	 * without any arguments, in this case it will try to create a SQLite database in
+	 * /tmp called red.db (this only works on UNIX-like systems).
 	 *
 	 * Usage:
 	 *
@@ -446,17 +448,17 @@ class Facade
 	 *
 	 * @return ToolBox
 	 */
-  public static function createToolbox( $dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array() )
-  {
-		if ( is_object($dsn) ) {
-			$db  = new RPDO( $dsn );
+	public static function createToolbox($dsn = NULL, $username = NULL, $password = NULL, $frozen = FALSE, $partialBeans = FALSE, $options = array())
+	{
+		if (is_object($dsn)) {
+			$db  = new RPDO($dsn);
 			$dbType = $db->getDatabaseType();
 		} else {
-			$db = new RPDO( $dsn, $username, $password, $options );
-			$dbType = substr( $dsn, 0, strpos( $dsn, ':' ) );
+			$db = new RPDO($dsn, $username, $password, $options);
+			$dbType = substr($dsn, 0, strpos($dsn, ':'));
 		}
 
-		$adapter = new DBAdapter( $db );
+		$adapter = new DBAdapter($db);
 
 		$writers = array(
 			'pgsql'  => 'PostgreSQL',
@@ -466,20 +468,20 @@ class Facade
 			'sqlsrv' => 'SQLServer',
 		);
 
-		$wkey = trim( strtolower( $dbType ) );
-		if ( !isset( $writers[$wkey] ) ) {
-			$wkey = preg_replace( '/\W/', '' , $wkey );
-			throw new RedException( 'Unsupported database ('.$wkey.').' );
+		$wkey = trim(strtolower($dbType));
+		if (!isset($writers[$wkey])) {
+			$wkey = preg_replace('/\W/', '', $wkey);
+			throw new RedException('Unsupported database (' . $wkey . ').');
 		}
-		$writerClass = '\\RedBeanPHP\\QueryWriter\\'.$writers[$wkey];
-		$writer      = new $writerClass( $adapter );
-		$redbean     = new OODB( $writer, $frozen );
+		$writerClass = '\\RedBeanPHP\\QueryWriter\\' . $writers[$wkey];
+		$writer      = new $writerClass($adapter);
+		$redbean     = new OODB($writer, $frozen);
 
-		if ( $partialBeans ) {
-			$redbean->getCurrentRepository()->usePartialBeans( $partialBeans );
+		if ($partialBeans) {
+			$redbean->getCurrentRepository()->usePartialBeans($partialBeans);
 		}
 
-		return new ToolBox( $redbean, $adapter, $writer );
+		return new ToolBox($redbean, $adapter, $writer);
 	}
 
 	/**
@@ -491,9 +493,9 @@ class Facade
 	 *
 	 * @return boolean
 	 */
-	public static function hasDatabase( $key )
+	public static function hasDatabase($key)
 	{
-		return ( isset( self::$toolboxes[$key] ) );
+		return (isset(self::$toolboxes[$key]));
 	}
 
 	/**
@@ -510,17 +512,17 @@ class Facade
 	 *
 	 * @return boolean
 	 */
-	public static function selectDatabase( $key, $force = FALSE )
+	public static function selectDatabase($key, $force = FALSE)
 	{
-		if ( self::$currentDB === $key && !$force ) {
+		if (self::$currentDB === $key && !$force) {
 			return FALSE;
 		}
 
-		if ( !isset( self::$toolboxes[$key] ) ) {
-			throw new RedException( 'Database not found in registry. Add database using R::addDatabase().' );
+		if (!isset(self::$toolboxes[$key])) {
+			throw new RedException('Database not found in registry. Add database using R::addDatabase().');
 		}
 
-		self::configureFacadeWithToolbox( self::$toolboxes[$key] );
+		self::configureFacadeWithToolbox(self::$toolboxes[$key]);
 		self::$currentDB = $key;
 
 		return TRUE;
@@ -557,7 +559,7 @@ class Facade
 	 * @return RDefault
 	 * @throws RedException
 	 */
-	public static function debug( $tf = TRUE, $mode = 0 )
+	public static function debug($tf = TRUE, $mode = 0)
 	{
 		if ($mode > 1) {
 			$mode -= 2;
@@ -566,11 +568,11 @@ class Facade
 			$logger = new RDefault;
 		}
 
-		if ( !isset( self::$adapter ) ) {
-			throw new RedException( 'Use R::setup() first.' );
+		if (!isset(self::$adapter)) {
+			throw new RedException('Use R::setup() first.');
 		}
 		$logger->setMode($mode);
-		self::$adapter->getDatabase()->setDebugMode( $tf, $logger );
+		self::$adapter->getDatabase()->setDebugMode($tf, $logger);
 
 		return $logger;
 	}
@@ -586,25 +588,25 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function fancyDebug( $toggle = TRUE )
+	public static function fancyDebug($toggle = TRUE)
 	{
-		self::debug( $toggle, 2 );
+		self::debug($toggle, 2);
 	}
 
 	/**
-	* Inspects the database schema. If you pass the type of a bean this
-	* method will return the fields of its table in the database.
-	* The keys of this array will be the field names and the values will be
-	* the column types used to store their values.
-	* If no type is passed, this method returns a list of all tables in the database.
-	*
-	* @param string $type Type of bean (i.e. table) you want to inspect
-	*
-	* @return array
-	*/
-	public static function inspect( $type = NULL )
+	 * Inspects the database schema. If you pass the type of a bean this
+	 * method will return the fields of its table in the database.
+	 * The keys of this array will be the field names and the values will be
+	 * the column types used to store their values.
+	 * If no type is passed, this method returns a list of all tables in the database.
+	 *
+	 * @param string $type Type of bean (i.e. table) you want to inspect
+	 *
+	 * @return array
+	 */
+	public static function inspect($type = NULL)
 	{
-		return ($type === NULL) ? self::$writer->getTables() : self::$writer->getColumns( $type );
+		return ($type === NULL) ? self::$writer->getTables() : self::$writer->getColumns($type);
 	}
 
 	/**
@@ -647,17 +649,17 @@ class Facade
 	 *
 	 * @return integer|string
 	 */
-	public static function store( $bean, $unfreezeIfNeeded = FALSE )
+	public static function store($bean, $unfreezeIfNeeded = FALSE)
 	{
 		$result = NULL;
 		try {
-			$result = self::$redbean->store( $bean );
+			$result = self::$redbean->store($bean);
 		} catch (SQLException $exception) {
 			$wasFrozen = self::$redbean->isFrozen();
-			if ( !self::$allowHybridMode || !$unfreezeIfNeeded ) throw $exception;
-			self::freeze( FALSE );
-			$result = self::$redbean->store( $bean );
-			self::freeze( $wasFrozen );
+			if (!self::$allowHybridMode || !$unfreezeIfNeeded) throw $exception;
+			self::freeze(FALSE);
+			$result = self::$redbean->store($bean);
+			self::freeze($wasFrozen);
 		}
 		return $result;
 	}
@@ -673,9 +675,9 @@ class Facade
 	 *
 	 * @param boolean|array $tf mode of operation (TRUE means frozen)
 	 */
-	public static function freeze( $tf = TRUE )
+	public static function freeze($tf = TRUE)
 	{
-		self::$redbean->freeze( $tf );
+		self::$redbean->freeze($tf);
 	}
 
 	/**
@@ -697,9 +699,9 @@ class Facade
 	 *
 	 * @return OODBBean
 	 */
-	public static function loadMulti( $types, $id )
+	public static function loadMulti($types, $id)
 	{
-		return MultiLoader::load( self::$redbean, $types, $id );
+		return MultiLoader::load(self::$redbean, $types, $id);
 	}
 
 	/**
@@ -741,10 +743,10 @@ class Facade
 	 *
 	 * @return OODBBean
 	 */
-	public static function load( $type, $id, $snippet = NULL )
+	public static function load($type, $id, $snippet = NULL)
 	{
-		if ( $snippet !== NULL ) self::$writer->setSQLSelectSnippet( $snippet );
-		$bean = self::$redbean->load( $type, $id );
+		if ($snippet !== NULL) self::$writer->setSQLSelectSnippet($snippet);
+		$bean = self::$redbean->load($type, $id);
 		return $bean;
 	}
 
@@ -767,9 +769,9 @@ class Facade
 	 *
 	 * @return OODBBean
 	 */
-	public static function loadForUpdate( $type, $id )
+	public static function loadForUpdate($type, $id)
 	{
-		return self::load( $type, $id, AQueryWriter::C_SELECT_SNIPPET_FOR_UPDATE );
+		return self::load($type, $id, AQueryWriter::C_SELECT_SNIPPET_FOR_UPDATE);
 	}
 
 	/**
@@ -796,9 +798,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findForUpdate( $type, $sql = NULL, $bindings = array() )
+	public static function findForUpdate($type, $sql = NULL, $bindings = array())
 	{
-		return self::find( $type, $sql, $bindings, AQueryWriter::C_SELECT_SNIPPET_FOR_UPDATE );
+		return self::find($type, $sql, $bindings, AQueryWriter::C_SELECT_SNIPPET_FOR_UPDATE);
 	}
 
 	/**
@@ -811,9 +813,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findOneForUpdate( $type, $sql = NULL, $bindings = array() )
+	public static function findOneForUpdate($type, $sql = NULL, $bindings = array())
 	{
-		$sql = self::getWriter()->glueLimitOne( $sql );
+		$sql = self::getWriter()->glueLimitOne($sql);
 		$beans = self::findForUpdate($type, $sql, $bindings);
 		return !empty($beans) ? reset($beans) : NULL;
 	}
@@ -848,10 +850,10 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function trash( $beanOrType, $id = NULL )
+	public static function trash($beanOrType, $id = NULL)
 	{
-		if ( is_string( $beanOrType ) ) return self::trash( self::load( $beanOrType, $id ) );
-		return self::$redbean->trash( $beanOrType );
+		if (is_string($beanOrType)) return self::trash(self::load($beanOrType, $id));
+		return self::$redbean->trash($beanOrType);
 	}
 
 	/**
@@ -900,9 +902,9 @@ class Facade
 	 *
 	 * @return array|OODBBean
 	 */
-	public static function dispense( $typeOrBeanArray, $num = 1, $alwaysReturnArray = FALSE )
+	public static function dispense($typeOrBeanArray, $num = 1, $alwaysReturnArray = FALSE)
 	{
-		return DispenseHelper::dispense( self::$redbean, $typeOrBeanArray, $num, $alwaysReturnArray );
+		return DispenseHelper::dispense(self::$redbean, $typeOrBeanArray, $num, $alwaysReturnArray);
 	}
 
 	/**
@@ -933,9 +935,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function dispenseAll( $order, $onlyArrays = FALSE )
+	public static function dispenseAll($order, $onlyArrays = FALSE)
 	{
-		return DispenseHelper::dispenseAll( self::$redbean, $order, $onlyArrays );
+		return DispenseHelper::dispenseAll(self::$redbean, $order, $onlyArrays);
 	}
 
 	/**
@@ -949,10 +951,10 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findOrDispense( $type, $sql = NULL, $bindings = array() )
+	public static function findOrDispense($type, $sql = NULL, $bindings = array())
 	{
-		DispenseHelper::checkType( $type );
-		return self::$finder->findOrDispense( $type, $sql, $bindings );
+		DispenseHelper::checkType($type);
+		return self::$finder->findOrDispense($type, $sql, $bindings);
 	}
 
 	/**
@@ -964,10 +966,10 @@ class Facade
 	 *
 	 * @return OODBBean
 	 */
-	public static function findOneOrDispense( $type, $sql = NULL, $bindings = array() )
+	public static function findOneOrDispense($type, $sql = NULL, $bindings = array())
 	{
-		DispenseHelper::checkType( $type );
-		$arrayOfBeans = self::findOrDispense( $type, $sql, $bindings );
+		DispenseHelper::checkType($type);
+		$arrayOfBeans = self::findOrDispense($type, $sql, $bindings);
 		return reset($arrayOfBeans);
 	}
 
@@ -987,10 +989,10 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function find( $type, $sql = NULL, $bindings = array(), $snippet = NULL )
+	public static function find($type, $sql = NULL, $bindings = array(), $snippet = NULL)
 	{
-		if ( $snippet !== NULL ) self::$writer->setSQLSelectSnippet( $snippet );
-		return self::$finder->find( $type, $sql, $bindings );
+		if ($snippet !== NULL) self::$writer->setSQLSelectSnippet($snippet);
+		return self::$finder->find($type, $sql, $bindings);
 	}
 
 	/**
@@ -1002,9 +1004,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findAll( $type, $sql = NULL, $bindings = array() )
+	public static function findAll($type, $sql = NULL, $bindings = array())
 	{
-		return self::$finder->find( $type, $sql, $bindings );
+		return self::$finder->find($type, $sql, $bindings);
 	}
 
 	/**
@@ -1022,9 +1024,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findAndExport( $type, $sql = NULL, $bindings = array() )
+	public static function findAndExport($type, $sql = NULL, $bindings = array())
 	{
-		return self::$finder->findAndExport( $type, $sql, $bindings );
+		return self::$finder->findAndExport($type, $sql, $bindings);
 	}
 
 	/**
@@ -1036,9 +1038,9 @@ class Facade
 	 *
 	 * @return OODBBean|NULL
 	 */
-	public static function findOne( $type, $sql = NULL, $bindings = array() )
+	public static function findOne($type, $sql = NULL, $bindings = array())
 	{
-		return self::$finder->findOne( $type, $sql, $bindings );
+		return self::$finder->findOne($type, $sql, $bindings);
 	}
 
 	/**
@@ -1061,9 +1063,9 @@ class Facade
 	 *
 	 * @return OODBBean|NULL
 	 */
-	public static function findLast( $type, $sql = NULL, $bindings = array() )
+	public static function findLast($type, $sql = NULL, $bindings = array())
 	{
-		return self::$finder->findLast( $type, $sql, $bindings );
+		return self::$finder->findLast($type, $sql, $bindings);
 	}
 
 	/**
@@ -1078,9 +1080,9 @@ class Facade
 	 *
 	 * @return BeanCollection
 	 */
-	public static function findCollection( $type, $sql = NULL, $bindings = array() )
+	public static function findCollection($type, $sql = NULL, $bindings = array())
 	{
-		return self::$finder->findCollection( $type, $sql, $bindings );
+		return self::$finder->findCollection($type, $sql, $bindings);
 	}
 
 	/**
@@ -1151,9 +1153,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findMulti( $types, $sql, $bindings = array(), $remappings = array() )
+	public static function findMulti($types, $sql, $bindings = array(), $remappings = array())
 	{
-		return self::$finder->findMulti( $types, $sql, $bindings, $remappings );
+		return self::$finder->findMulti($types, $sql, $bindings, $remappings);
 	}
 
 	/**
@@ -1170,9 +1172,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function batch( $type, $ids )
+	public static function batch($type, $ids)
 	{
-		return self::$redbean->batch( $type, $ids );
+		return self::$redbean->batch($type, $ids);
 	}
 
 	/**
@@ -1186,9 +1188,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function loadAll( $type, $ids )
+	public static function loadAll($type, $ids)
 	{
-		return self::$redbean->batch( $type, $ids );
+		return self::$redbean->batch($type, $ids);
 	}
 
 	/**
@@ -1200,9 +1202,9 @@ class Facade
 	 *
 	 * @return integer
 	 */
-	public static function exec( $sql, $bindings = array() )
+	public static function exec($sql, $bindings = array())
 	{
-		return self::query( 'exec', $sql, $bindings );
+		return self::query('exec', $sql, $bindings);
 	}
 
 	/**
@@ -1218,9 +1220,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function getAll( $sql, $bindings = array() )
+	public static function getAll($sql, $bindings = array())
 	{
-		return self::query( 'get', $sql, $bindings );
+		return self::query('get', $sql, $bindings);
 	}
 
 	/**
@@ -1235,9 +1237,9 @@ class Facade
 	 *
 	 * @return string
 	 */
-	public static function getCell( $sql, $bindings = array() )
+	public static function getCell($sql, $bindings = array())
 	{
-		return self::query( 'getCell', $sql, $bindings );
+		return self::query('getCell', $sql, $bindings);
 	}
 
 	/**
@@ -1252,9 +1254,9 @@ class Facade
 	 *
 	 * @return RedBeanPHP\Cursor\PDOCursor
 	 */
-	public static function getCursor( $sql, $bindings = array() )
+	public static function getCursor($sql, $bindings = array())
 	{
-		return self::query( 'getCursor', $sql, $bindings );
+		return self::query('getCursor', $sql, $bindings);
 	}
 
 	/**
@@ -1269,9 +1271,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function getRow( $sql, $bindings = array() )
+	public static function getRow($sql, $bindings = array())
 	{
-		return self::query( 'getRow', $sql, $bindings );
+		return self::query('getRow', $sql, $bindings);
 	}
 
 	/**
@@ -1286,9 +1288,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function getCol( $sql, $bindings = array() )
+	public static function getCol($sql, $bindings = array())
 	{
-		return self::query( 'getCol', $sql, $bindings );
+		return self::query('getCol', $sql, $bindings);
 	}
 
 	/**
@@ -1305,9 +1307,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function getAssoc( $sql, $bindings = array() )
+	public static function getAssoc($sql, $bindings = array())
 	{
-		return self::query( 'getAssoc', $sql, $bindings );
+		return self::query('getAssoc', $sql, $bindings);
 	}
 
 	/**
@@ -1324,9 +1326,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function getAssocRow( $sql, $bindings = array() )
+	public static function getAssocRow($sql, $bindings = array())
 	{
-		return self::query( 'getAssocRow', $sql, $bindings );
+		return self::query('getAssocRow', $sql, $bindings);
 	}
 
 	/**
@@ -1366,10 +1368,10 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function dup( $bean, $trail = array(), $pid = FALSE, $filters = array() )
+	public static function dup($bean, $trail = array(), $pid = FALSE, $filters = array())
 	{
-		self::$duplicationManager->setFilters( $filters );
-		return self::$duplicationManager->dup( $bean, $trail, $pid );
+		self::$duplicationManager->setFilters($filters);
+		return self::$duplicationManager->dup($bean, $trail, $pid);
 	}
 
 	/**
@@ -1396,9 +1398,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function duplicate( $bean, $filters = array() )
+	public static function duplicate($bean, $filters = array())
 	{
-		return self::dup( $bean, array(), FALSE, $filters );
+		return self::dup($bean, array(), FALSE, $filters);
 	}
 
 	/**
@@ -1417,9 +1419,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function exportAll( $beans, $parents = FALSE, $filters = array(), $meta = FALSE )
+	public static function exportAll($beans, $parents = FALSE, $filters = array(), $meta = FALSE)
 	{
-		return self::$duplicationManager->exportAll( $beans, $parents, $filters, self::$exportCaseStyle, $meta );
+		return self::$duplicationManager->exportAll($beans, $parents, $filters, self::$exportCaseStyle, $meta);
 	}
 
 	/**
@@ -1440,9 +1442,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function useExportCase( $caseStyle = 'default' )
+	public static function useExportCase($caseStyle = 'default')
 	{
-		if ( !in_array( $caseStyle, array( 'default', 'camel', 'dolphin' ) ) ) throw new RedException( 'Invalid case selected.' );
+		if (!in_array($caseStyle, array('default', 'camel', 'dolphin'))) throw new RedException('Invalid case selected.');
 		self::$exportCaseStyle = $caseStyle;
 	}
 
@@ -1484,9 +1486,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function convertToBeans( $type, $rows, $metamask = NULL )
+	public static function convertToBeans($type, $rows, $metamask = NULL)
 	{
-		return self::$redbean->convertToBeans( $type, $rows, $metamask );
+		return self::$redbean->convertToBeans($type, $rows, $metamask);
 	}
 
 	/**
@@ -1498,11 +1500,11 @@ class Facade
 	 *
 	 * @return OODBBean|NULL
 	 */
-	public static function convertToBean( $type, $row, $metamask = NULL )
+	public static function convertToBean($type, $row, $metamask = NULL)
 	{
-		if ( !count( $row ) ) return NULL;
-		$beans = self::$redbean->convertToBeans( $type, array( $row ), $metamask );
-		$bean  = reset( $beans );
+		if (!count($row)) return NULL;
+		$beans = self::$redbean->convertToBeans($type, array($row), $metamask);
+		$bean  = reset($beans);
 		return $bean;
 	}
 
@@ -1549,18 +1551,19 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findFromSQL( $type, $sql, $bindings = array(), $metamask = 'extra_', $autoExtract = false) {
-		$rows = self::query( 'get', $sql, $bindings );
+	public static function findFromSQL($type, $sql, $bindings = array(), $metamask = 'extra_', $autoExtract = false)
+	{
+		$rows = self::query('get', $sql, $bindings);
 		$beans = array();
-		if (count($rows)) $beans = self::$redbean->convertToBeans( $type, $rows, $metamask );
+		if (count($rows)) $beans = self::$redbean->convertToBeans($type, $rows, $metamask);
 		if ($autoExtract && is_array($metamask)) {
 			$values = array();
 			$firstBean = NULL;
 			if (count($beans)) $firstBean = reset($beans);
-			foreach($metamask as $key) {
+			foreach ($metamask as $key) {
 				$values[$key] = ($firstBean) ? $firstBean->info($key) : NULL;
 			}
-			return array( $values, $beans );
+			return array($values, $beans);
 		}
 		return $beans;
 	}
@@ -1594,9 +1597,9 @@ class Facade
 	 *
 	 * @return boolean
 	 */
-	public static function hasTag( $bean, $tags, $all = FALSE )
+	public static function hasTag($bean, $tags, $all = FALSE)
 	{
-		return self::$tagManager->hasTag( $bean, $tags, $all );
+		return self::$tagManager->hasTag($bean, $tags, $all);
 	}
 
 	/**
@@ -1620,9 +1623,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function untag( $bean, $tagList )
+	public static function untag($bean, $tagList)
 	{
-		self::$tagManager->untag( $bean, $tagList );
+		self::$tagManager->untag($bean, $tagList);
 	}
 
 	/**
@@ -1649,9 +1652,9 @@ class Facade
 	 *
 	 * @return string
 	 */
-	public static function tag( OODBBean $bean, $tagList = NULL )
+	public static function tag(OODBBean $bean, $tagList = NULL)
 	{
-		return self::$tagManager->tag( $bean, $tagList );
+		return self::$tagManager->tag($bean, $tagList);
 	}
 
 	/**
@@ -1674,9 +1677,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function addTags( OODBBean $bean, $tagList )
+	public static function addTags(OODBBean $bean, $tagList)
 	{
-		self::$tagManager->addTags( $bean, $tagList );
+		self::$tagManager->addTags($bean, $tagList);
 	}
 
 	/**
@@ -1708,9 +1711,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function tagged( $beanType, $tagList, $sql = '', $bindings = array() )
+	public static function tagged($beanType, $tagList, $sql = '', $bindings = array())
 	{
-		return self::$tagManager->tagged( $beanType, $tagList, $sql, $bindings );
+		return self::$tagManager->tagged($beanType, $tagList, $sql, $bindings);
 	}
 
 	/**
@@ -1742,9 +1745,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function taggedAll( $beanType, $tagList, $sql = '', $bindings = array() )
+	public static function taggedAll($beanType, $tagList, $sql = '', $bindings = array())
 	{
-		return self::$tagManager->taggedAll( $beanType, $tagList, $sql, $bindings );
+		return self::$tagManager->taggedAll($beanType, $tagList, $sql, $bindings);
 	}
 
 	/**
@@ -1759,9 +1762,9 @@ class Facade
 	 *
 	 * @return integer
 	 */
-	public static function countTaggedAll( $beanType, $tagList, $sql = '', $bindings = array() )
+	public static function countTaggedAll($beanType, $tagList, $sql = '', $bindings = array())
 	{
-		return self::$tagManager->countTaggedAll( $beanType, $tagList, $sql, $bindings );
+		return self::$tagManager->countTaggedAll($beanType, $tagList, $sql, $bindings);
 	}
 
 	/**
@@ -1776,9 +1779,9 @@ class Facade
 	 *
 	 * @return integer
 	 */
-	public static function countTagged( $beanType, $tagList, $sql = '', $bindings = array() )
+	public static function countTagged($beanType, $tagList, $sql = '', $bindings = array())
 	{
-		return self::$tagManager->countTagged( $beanType, $tagList, $sql, $bindings );
+		return self::$tagManager->countTagged($beanType, $tagList, $sql, $bindings);
 	}
 
 	/**
@@ -1788,9 +1791,9 @@ class Facade
 	 *
 	 * @return boolean
 	 */
-	public static function wipe( $beanType )
+	public static function wipe($beanType)
 	{
-		return Facade::$redbean->wipe( $beanType );
+		return Facade::$redbean->wipe($beanType);
 	}
 
 	/**
@@ -1804,9 +1807,9 @@ class Facade
 	 *
 	 * @return integer
 	 */
-	public static function count( $type, $addSQL = '', $bindings = array() )
+	public static function count($type, $addSQL = '', $bindings = array())
 	{
-		return Facade::$redbean->count( $type, $addSQL, $bindings );
+		return Facade::$redbean->count($type, $addSQL, $bindings);
 	}
 
 	/**
@@ -1818,25 +1821,25 @@ class Facade
 	 *
 	 * @return ToolBox
 	 */
-	public static function configureFacadeWithToolbox( ToolBox $tb )
+	public static function configureFacadeWithToolbox(ToolBox $tb)
 	{
 		$oldTools                 = self::$toolbox;
 		self::$toolbox            = $tb;
 		self::$writer             = self::$toolbox->getWriter();
 		self::$adapter            = self::$toolbox->getDatabaseAdapter();
 		self::$redbean            = self::$toolbox->getRedBean();
-		self::$finder             = new Finder( self::$toolbox );
-		self::$associationManager = new AssociationManager( self::$toolbox );
-		self::$tree               = new Tree( self::$toolbox );
-		self::$redbean->setAssociationManager( self::$associationManager );
-		self::$labelMaker         = new LabelMaker( self::$toolbox );
+		self::$finder             = new Finder(self::$toolbox);
+		self::$associationManager = new AssociationManager(self::$toolbox);
+		self::$tree               = new Tree(self::$toolbox);
+		self::$redbean->setAssociationManager(self::$associationManager);
+		self::$labelMaker         = new LabelMaker(self::$toolbox);
 		$helper                   = new SimpleModelHelper();
-		$helper->attachEventListeners( self::$redbean );
+		$helper->attachEventListeners(self::$redbean);
 		if (self::$redbean->getBeanHelper() == NULL) {
-			self::$redbean->setBeanHelper( new SimpleFacadeBeanHelper );
+			self::$redbean->setBeanHelper(new SimpleFacadeBeanHelper);
 		}
-		self::$duplicationManager = new DuplicationManager( self::$toolbox );
-		self::$tagManager         = new TagManager( self::$toolbox );
+		self::$duplicationManager = new DuplicationManager(self::$toolbox);
+		self::$tagManager         = new TagManager(self::$toolbox);
 		return $oldTools;
 	}
 
@@ -1876,7 +1879,7 @@ class Facade
 	 */
 	public static function begin()
 	{
-		if ( !self::$allowFluidTransactions && !self::$redbean->isFrozen() ) return FALSE;
+		if (!self::$allowFluidTransactions && !self::$redbean->isFrozen()) return FALSE;
 		self::$adapter->startTransaction();
 		return TRUE;
 	}
@@ -1917,7 +1920,7 @@ class Facade
 	 */
 	public static function commit()
 	{
-		if ( !self::$allowFluidTransactions && !self::$redbean->isFrozen() ) return FALSE;
+		if (!self::$allowFluidTransactions && !self::$redbean->isFrozen()) return FALSE;
 		self::$adapter->commit();
 		return TRUE;
 	}
@@ -1958,7 +1961,7 @@ class Facade
 	 */
 	public static function rollback()
 	{
-		if ( !self::$allowFluidTransactions && !self::$redbean->isFrozen() ) return FALSE;
+		if (!self::$allowFluidTransactions && !self::$redbean->isFrozen()) return FALSE;
 		self::$adapter->rollback();
 		return TRUE;
 	}
@@ -1973,9 +1976,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function getColumns( $table )
+	public static function getColumns($table)
 	{
-		return self::$writer->getColumns( $table );
+		return self::$writer->getColumns($table);
 	}
 
 	/**
@@ -2007,9 +2010,9 @@ class Facade
 	 *
 	 * @return string
 	 */
-	public static function genSlots( $array, $template = NULL )
+	public static function genSlots($array, $template = NULL)
 	{
-		return ArrayTool::genSlots( $array, $template );
+		return ArrayTool::genSlots($array, $template);
 	}
 
 	/**
@@ -2043,15 +2046,15 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function loadJoined( $beans, $type, $sqlTemplate = 'SELECT %s.* FROM %s WHERE id IN (%s)' )
+	public static function loadJoined($beans, $type, $sqlTemplate = 'SELECT %s.* FROM %s WHERE id IN (%s)')
 	{
 		if (!count($beans)) return array();
 		$ids  = array();
 		$key  = "{$type}_id";
-		foreach( $beans as $bean ) $ids[] = $bean->{$key};
-		$result = self::findMulti($type, self::genSlots( $beans,sprintf($sqlTemplate, $type, $type, '%s')), $ids, array( Finder::onmap($type, $beans) ) );
+		foreach ($beans as $bean) $ids[] = $bean->{$key};
+		$result = self::findMulti($type, self::genSlots($beans, sprintf($sqlTemplate, $type, $type, '%s')), $ids, array(Finder::onmap($type, $beans)));
 		$bean = reset($beans);
-		return $result[ $bean->getMeta('type') ];
+		return $result[$bean->getMeta('type')];
 	}
 
 	/**
@@ -2070,9 +2073,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function flat( $array, $result = array() )
+	public static function flat($array, $result = array())
 	{
-		return ArrayTool::flat( $array, $result );
+		return ArrayTool::flat($array, $result);
 	}
 
 	/**
@@ -2086,7 +2089,7 @@ class Facade
 	 */
 	public static function nuke()
 	{
-		return self::wipeAll( TRUE );
+		return self::wipeAll(TRUE);
 	}
 
 	/**
@@ -2099,15 +2102,15 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function wipeAll( $alsoDeleteTables = FALSE )
+	public static function wipeAll($alsoDeleteTables = FALSE)
 	{
-		if ( $alsoDeleteTables ) {
-			if ( !self::$redbean->isFrozen() ) {
+		if ($alsoDeleteTables) {
+			if (!self::$redbean->isFrozen()) {
 				self::$writer->wipeAll();
 			}
 		} else {
-			foreach ( self::$writer->getTables() as $table ) {
-				self::wipe( $table );
+			foreach (self::$writer->getTables() as $table) {
+				self::wipe($table);
 			}
 		}
 	}
@@ -2128,11 +2131,11 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function storeAll( $beans, $unfreezeIfNeeded = FALSE )
+	public static function storeAll($beans, $unfreezeIfNeeded = FALSE)
 	{
 		$ids = array();
-		foreach ( $beans as $bean ) {
-			$ids[] = self::store( $bean, $unfreezeIfNeeded );
+		foreach ($beans as $bean) {
+			$ids[] = self::store($bean, $unfreezeIfNeeded);
 		}
 		return $ids;
 	}
@@ -2146,11 +2149,11 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function trashAll( $beans )
+	public static function trashAll($beans)
 	{
 		$numberOfDeletion = 0;
-		foreach ( $beans as $bean ) {
-			$numberOfDeletion += self::trash( $bean );
+		foreach ($beans as $bean) {
+			$numberOfDeletion += self::trash($bean);
 		}
 		return $numberOfDeletion;
 	}
@@ -2170,9 +2173,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function trashBatch( $type, $ids )
+	public static function trashBatch($type, $ids)
 	{
-		self::trashAll( self::batch( $type, $ids ) );
+		self::trashAll(self::batch($type, $ids));
 	}
 
 	/**
@@ -2198,12 +2201,12 @@ class Facade
 	 *
 	 * @return int
 	 */
-	public static function hunt( $type, $sqlSnippet = NULL, $bindings = array() )
+	public static function hunt($type, $sqlSnippet = NULL, $bindings = array())
 	{
 		$numberOfTrashedBeans = 0;
-		$beans = self::findCollection( $type, $sqlSnippet, $bindings );
-		while( $bean = $beans->next() ) {
-			self::trash( $bean );
+		$beans = self::findCollection($type, $sqlSnippet, $bindings);
+		while ($bean = $beans->next()) {
+			self::trash($bean);
 			$numberOfTrashedBeans++;
 		}
 		return $numberOfTrashedBeans;
@@ -2224,9 +2227,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function useWriterCache( $yesNo )
+	public static function useWriterCache($yesNo)
 	{
-		self::getWriter()->setUseCache( $yesNo );
+		self::getWriter()->setUseCache($yesNo);
 	}
 
 	/**
@@ -2240,9 +2243,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function dispenseLabels( $type, $labels )
+	public static function dispenseLabels($type, $labels)
 	{
-		return self::$labelMaker->dispenseLabels( $type, $labels );
+		return self::$labelMaker->dispenseLabels($type, $labels);
 	}
 
 	/**
@@ -2276,9 +2279,9 @@ class Facade
 	 *
 	 * @return array|OODBBean
 	 */
-	public static function enum( $enum )
+	public static function enum($enum)
 	{
-		return self::$labelMaker->enum( $enum );
+		return self::$labelMaker->enum($enum);
 	}
 
 	/**
@@ -2291,9 +2294,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function gatherLabels( $beans )
+	public static function gatherLabels($beans)
 	{
-		return self::$labelMaker->gatherLabels( $beans );
+		return self::$labelMaker->gatherLabels($beans);
 	}
 
 	/**
@@ -2314,7 +2317,7 @@ class Facade
 	 */
 	public static function close()
 	{
-		if ( isset( self::$adapter ) ) {
+		if (isset(self::$adapter)) {
 			self::$adapter->close();
 		}
 	}
@@ -2327,13 +2330,13 @@ class Facade
 	 *
 	 * @return string
 	 */
-	public static function isoDate( $time = NULL )
+	public static function isoDate($time = NULL)
 	{
-		if ( !$time ) {
+		if (!$time) {
 			$time = time();
 		}
 
-		return @date( 'Y-m-d', $time );
+		return @date('Y-m-d', $time);
 	}
 
 	/**
@@ -2345,10 +2348,10 @@ class Facade
 	 *
 	 * @return string
 	 */
-	public static function isoDateTime( $time = NULL )
+	public static function isoDateTime($time = NULL)
 	{
-		if ( !$time ) $time = time();
-		return @date( 'Y-m-d H:i:s', $time );
+		if (!$time) $time = time();
+		return @date('Y-m-d H:i:s', $time);
 	}
 
 	/**
@@ -2360,7 +2363,7 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function setDatabaseAdapter( Adapter $adapter )
+	public static function setDatabaseAdapter(Adapter $adapter)
 	{
 		self::$adapter = $adapter;
 	}
@@ -2375,7 +2378,7 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function setWriter( QueryWriter $writer )
+	public static function setWriter(QueryWriter $writer)
 	{
 		self::$writer = $writer;
 	}
@@ -2388,7 +2391,7 @@ class Facade
 	 *
 	 * @param OODB $redbean Object Database for facade to use
 	 */
-	public static function setRedBean( OODB $redbean )
+	public static function setRedBean(OODB $redbean)
 	{
 		self::$redbean = $redbean;
 	}
@@ -2421,10 +2424,10 @@ class Facade
 	public static function getPDO()
 	{
 		$databaseAdapter = self::getDatabaseAdapter();
-		if ( is_null( $databaseAdapter ) ) return NULL;
+		if (is_null($databaseAdapter)) return NULL;
 		$database = $databaseAdapter->getDatabase();
-		if ( is_null( $database ) ) return NULL;
-		if ( !method_exists( $database, 'getPDO' ) ) return NULL;
+		if (is_null($database)) return NULL;
+		if (!method_exists($database, 'getPDO')) return NULL;
 		return $database->getPDO();
 	}
 
@@ -2490,7 +2493,7 @@ class Facade
 	 */
 	public static function getExtractedToolbox()
 	{
-		return array( self::$redbean, self::$adapter, self::$writer, self::$toolbox );
+		return array(self::$redbean, self::$adapter, self::$writer, self::$toolbox);
 	}
 
 	/**
@@ -2501,9 +2504,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function renameAssociation( $from, $to = NULL )
+	public static function renameAssociation($from, $to = NULL)
 	{
-		AQueryWriter::renameAssociation( $from, $to );
+		AQueryWriter::renameAssociation($from, $to);
 	}
 
 	/**
@@ -2517,10 +2520,10 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function beansToArray( $beans )
+	public static function beansToArray($beans)
 	{
 		$list = array();
-		foreach( $beans as $bean ) $list[] = $bean->export();
+		foreach ($beans as $bean) $list[] = $bean->export();
 		return $list;
 	}
 
@@ -2552,9 +2555,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function setErrorHandlingFUSE( $mode, $func = NULL )
+	public static function setErrorHandlingFUSE($mode, $func = NULL)
 	{
-		return OODBBean::setErrorHandlingFUSE( $mode, $func );
+		return OODBBean::setErrorHandlingFUSE($mode, $func);
 	}
 
 	/**
@@ -2579,9 +2582,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function dump( $data )
+	public static function dump($data)
 	{
-		return Dump::dump( $data );
+		return Dump::dump($data);
 	}
 
 	/**
@@ -2608,9 +2611,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function bindFunc( $mode, $field, $function, $isTemplate = FALSE )
+	public static function bindFunc($mode, $field, $function, $isTemplate = FALSE)
 	{
-		self::$redbean->bindFunc( $mode, $field, $function, $isTemplate );
+		self::$redbean->bindFunc($mode, $field, $function, $isTemplate);
 	}
 
 	/**
@@ -2647,9 +2650,9 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function aliases( $list )
+	public static function aliases($list)
 	{
-		OODBBean::aliases( $list );
+		OODBBean::aliases($list);
 	}
 
 	/**
@@ -2666,9 +2669,9 @@ class Facade
 	 *
 	 * @return OODBBean
 	 */
-	public static function findOrCreate( $type, $like = array(), $sql = '', &$hasBeenCreated = false )
+	public static function findOrCreate($type, $like = array(), $sql = '', &$hasBeenCreated = false)
 	{
-		return self::$finder->findOrCreate( $type, $like, $sql = '', $hasBeenCreated );
+		return self::$finder->findOrCreate($type, $like, $sql = '', $hasBeenCreated);
 	}
 
 	/**
@@ -2685,9 +2688,9 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function findLike( $type, $like = array(), $sql = '', $bindings = array() )
+	public static function findLike($type, $like = array(), $sql = '', $bindings = array())
 	{
-		return self::$finder->findLike( $type, $like, $sql, $bindings );
+		return self::$finder->findLike($type, $like, $sql, $bindings);
 	}
 
 	/**
@@ -2721,7 +2724,7 @@ class Facade
 	 */
 	public static function startLogging()
 	{
-		self::debug( TRUE, RDefault::C_LOGGER_ARRAY );
+		self::debug(TRUE, RDefault::C_LOGGER_ARRAY);
 	}
 
 	/**
@@ -2758,7 +2761,7 @@ class Facade
 	 */
 	public static function stopLogging()
 	{
-		self::debug( FALSE );
+		self::debug(FALSE);
 	}
 
 	/**
@@ -2862,7 +2865,9 @@ class Facade
 	/**
 	 * @deprecated
 	 */
-	public static function setAutoResolve( $automatic = TRUE ){}
+	public static function setAutoResolve($automatic = TRUE)
+	{
+	}
 
 	/**
 	 * Toggles 'partial bean mode'. If this mode has been
@@ -2878,9 +2883,9 @@ class Facade
 	 *
 	 * @return mixed
 	 */
-	public static function usePartialBeans( $yesNoBeans )
+	public static function usePartialBeans($yesNoBeans)
 	{
-		return self::$redbean->getCurrentRepository()->usePartialBeans( $yesNoBeans );
+		return self::$redbean->getCurrentRepository()->usePartialBeans($yesNoBeans);
 	}
 
 	/**
@@ -2914,10 +2919,10 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function csv( $sql = '', $bindings = array(), $columns = NULL, $path = '/tmp/redexport_%s.csv', $output = TRUE )
+	public static function csv($sql = '', $bindings = array(), $columns = NULL, $path = '/tmp/redexport_%s.csv', $output = TRUE)
 	{
-		$quickExport = new QuickExport( self::$toolbox );
-		$quickExport->csv( $sql, $bindings, $columns, $path, $output );
+		$quickExport = new QuickExport(self::$toolbox);
+		$quickExport->csv($sql, $bindings, $columns, $path, $output);
 	}
 
 	/**
@@ -2950,9 +2955,10 @@ class Facade
 	 *
 	 * @return mixed
 	 */
-	public static function matchUp( $type, $sql, $bindings = array(), $onFoundDo = NULL, $onNotFoundDo = NULL, &$bean = NULL 	) {
-		$matchUp = new MatchUp( self::$toolbox );
-		return $matchUp->matchUp( $type, $sql, $bindings, $onFoundDo, $onNotFoundDo, $bean );
+	public static function matchUp($type, $sql, $bindings = array(), $onFoundDo = NULL, $onNotFoundDo = NULL, &$bean = NULL)
+	{
+		$matchUp = new MatchUp(self::$toolbox);
+		return $matchUp->matchUp($type, $sql, $bindings, $onFoundDo, $onNotFoundDo, $bean);
 	}
 
 	/**
@@ -2973,7 +2979,7 @@ class Facade
 	 */
 	public static function getLook()
 	{
-		return new Look( self::$toolbox );
+		return new Look(self::$toolbox);
 	}
 
 	/**
@@ -3023,9 +3029,9 @@ class Facade
 	 *
 	 * @return string
 	 */
-	public static function look( $sql, $bindings = array(), $keys = array( 'selected', 'id', 'name' ), $template = '<option %s value="%s">%s</option>', $filter = 'trim', $glue = '' )
+	public static function look($sql, $bindings = array(), $keys = array('selected', 'id', 'name'), $template = '<option %s value="%s">%s</option>', $filter = 'trim', $glue = '')
 	{
-		return self::getLook()->look( $sql, $bindings, $keys, $template, $filter, $glue );
+		return self::getLook()->look($sql, $bindings, $keys, $template, $filter, $glue);
 	}
 
 	/**
@@ -3060,10 +3066,10 @@ class Facade
 	 *
 	 * @return array
 	 */
-	public static function diff( $bean, $other, $filters = array( 'created', 'modified' ), $pattern = '%s.%s.%s' )
+	public static function diff($bean, $other, $filters = array('created', 'modified'), $pattern = '%s.%s.%s')
 	{
-		$diff = new Diff( self::$toolbox );
-		return $diff->diff( $bean, $other, $filters, $pattern );
+		$diff = new Diff(self::$toolbox);
+		return $diff->diff($bean, $other, $filters, $pattern);
 	}
 
 	/**
@@ -3077,7 +3083,7 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function addToolBoxWithKey( $key, ToolBox $toolbox )
+	public static function addToolBoxWithKey($key, ToolBox $toolbox)
 	{
 		self::$toolboxes[$key] = $toolbox;
 	}
@@ -3095,12 +3101,12 @@ class Facade
 	 *
 	 * @return boolean
 	 */
-	public static function removeToolBoxByKey( $key )
+	public static function removeToolBoxByKey($key)
 	{
-		if ( !array_key_exists( $key, self::$toolboxes ) ) {
+		if (!array_key_exists($key, self::$toolboxes)) {
 			return FALSE;
 		}
-		unset( self::$toolboxes[$key] );
+		unset(self::$toolboxes[$key]);
 		return TRUE;
 	}
 
@@ -3112,9 +3118,9 @@ class Facade
 	 *
 	 * @return ToolBox|NULL
 	 */
-	public static function getToolBoxByKey( $key )
+	public static function getToolBoxByKey($key)
 	{
-		if ( !array_key_exists( $key, self::$toolboxes ) ) {
+		if (!array_key_exists($key, self::$toolboxes)) {
 			return NULL;
 		}
 		return self::$toolboxes[$key];
@@ -3158,10 +3164,10 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function useJSONFeatures( $flag )
+	public static function useJSONFeatures($flag)
 	{
-		AQueryWriter::useJSONColumns( $flag );
-		OODBBean::convertArraysToJSON( $flag );
+		AQueryWriter::useJSONColumns($flag);
+		OODBBean::convertArraysToJSON($flag);
 	}
 
 	/**
@@ -3179,9 +3185,9 @@ class Facade
 	 * @param string   $sql      optional SQL snippet
 	 * @param array    $bindings SQL snippet parameter bindings
 	 */
-	public static function children( OODBBean $bean, $sql = NULL, $bindings = array() )
+	public static function children(OODBBean $bean, $sql = NULL, $bindings = array())
 	{
-		return self::$tree->children( $bean, $sql, $bindings );
+		return self::$tree->children($bean, $sql, $bindings);
 	}
 
 	/**
@@ -3212,9 +3218,9 @@ class Facade
 	 * @param array          $bindings SQL snippet parameter bindings
 	 * @param string|boolean $select   select snippet to use (advanced, optional, see QueryWriter::queryRecursiveCommonTableExpression)
 	 */
-	public static function countChildren( OODBBean $bean, $sql = NULL, $bindings = array(), $select = QueryWriter::C_CTE_SELECT_COUNT )
+	public static function countChildren(OODBBean $bean, $sql = NULL, $bindings = array(), $select = QueryWriter::C_CTE_SELECT_COUNT)
 	{
-		return self::$tree->countChildren( $bean, $sql, $bindings, $select );
+		return self::$tree->countChildren($bean, $sql, $bindings, $select);
 	}
 
 	/**
@@ -3245,9 +3251,9 @@ class Facade
 	 * @param array          $bindings SQL snippet parameter bindings
 	 * @param string|boolean $select   select snippet to use (advanced, optional, see QueryWriter::queryRecursiveCommonTableExpression)
 	 */
-	public static function countParents( OODBBean $bean, $sql = NULL, $bindings = array(), $select = QueryWriter::C_CTE_SELECT_COUNT )
+	public static function countParents(OODBBean $bean, $sql = NULL, $bindings = array(), $select = QueryWriter::C_CTE_SELECT_COUNT)
 	{
-		return self::$tree->countParents( $bean, $sql, $bindings, $select );
+		return self::$tree->countParents($bean, $sql, $bindings, $select);
 	}
 
 	/**
@@ -3264,9 +3270,9 @@ class Facade
 	 * @param string   $sql      optional SQL snippet
 	 * @param array    $bindings SQL snippet parameter bindings
 	 */
-	public static function parents( OODBBean $bean, $sql = NULL, $bindings = array() )
+	public static function parents(OODBBean $bean, $sql = NULL, $bindings = array())
 	{
-		return self::$tree->parents( $bean, $sql, $bindings );
+		return self::$tree->parents($bean, $sql, $bindings);
 	}
 
 	/**
@@ -3278,8 +3284,9 @@ class Facade
 	 *
 	 * @return boolean
 	 */
-	public static function noNuke( $yesNo ) {
-		return AQueryWriter::forbidNuke( $yesNo );
+	public static function noNuke($yesNo)
+	{
+		return AQueryWriter::forbidNuke($yesNo);
 	}
 
 	/**
@@ -3296,7 +3303,8 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function useFeatureSet( $label ) {
+	public static function useFeatureSet($label)
+	{
 		return Feature::feature($label);
 	}
 
@@ -3323,10 +3331,10 @@ class Facade
 	 *
 	 * @return void
 	 */
-	public static function ext( $pluginName, $callable )
+	public static function ext($pluginName, $callable)
 	{
-		if ( !preg_match( '#^[a-zA-Z_][a-zA-Z0-9_]*$#', $pluginName ) ) {
-			throw new RedException( 'Plugin name may only contain alphanumeric characters and underscores and cannot start with a number.' );
+		if (!preg_match('#^[a-zA-Z_][a-zA-Z0-9_]*$#', $pluginName)) {
+			throw new RedException('Plugin name may only contain alphanumeric characters and underscores and cannot start with a number.');
 		}
 		self::$plugins[$pluginName] = $callable;
 	}
@@ -3340,15 +3348,14 @@ class Facade
 	 *
 	 * @return mixed
 	 */
-	public static function __callStatic( $pluginName, $params )
+	public static function __callStatic($pluginName, $params)
 	{
-		if ( !isset( self::$plugins[$pluginName] ) ) {
-			if ( !preg_match( '#^[a-zA-Z_][a-zA-Z0-9_]*$#', $pluginName ) ) {
-				throw new RedException( 'Plugin name may only contain alphanumeric characters and underscores and cannot start with a number.' );
+		if (!isset(self::$plugins[$pluginName])) {
+			if (!preg_match('#^[a-zA-Z_][a-zA-Z0-9_]*$#', $pluginName)) {
+				throw new RedException('Plugin name may only contain alphanumeric characters and underscores and cannot start with a number.');
 			}
-			throw new RedException( 'Plugin \''.$pluginName.'\' does not exist, add this plugin using: R::ext(\''.$pluginName.'\')' );
+			throw new RedException('Plugin \'' . $pluginName . '\' does not exist, add this plugin using: R::ext(\'' . $pluginName . '\')');
 		}
-		return call_user_func_array( self::$plugins[$pluginName], $params );
+		return call_user_func_array(self::$plugins[$pluginName], $params);
 	}
 }
-

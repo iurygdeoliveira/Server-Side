@@ -9,7 +9,7 @@ use RedBeanPHP\RedException;
 
 trait Delete
 {
-    public function delete(R $bean)
+    public function delete($bean)
     {
         try {
 

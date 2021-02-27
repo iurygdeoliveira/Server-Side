@@ -7,13 +7,25 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-danger">Deletar</button>
-            </div>
+            <form action="{{link_rmUser}}" method="post" id="formDeletarUsuario" novalidate="novalidate">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputDeletarID">ID</label>
+                        <input type="text" class="form-control" name="id" id="inputDeletarID" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDeletarName">Nome</label>
+                        <input type="text" class="form-control" name="name" id="inputDeletarName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDeletarEmail">Email</label>
+                        <input type="text" class="form-control" name="email" id="inputDeletarEmail" readonly>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-danger">Deletar</button>
+                    </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>

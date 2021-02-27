@@ -1,0 +1,29 @@
+<script>
+    function fillTable(obj) {
+        var values = getValuesTable(obj);
+        setValuesForm(values);
+    }
+
+    function getValues(obj, param) {
+        return ($(obj).parents("tr").find("td:nth-child(" + param + ")").html());
+    }
+
+    function getValuesTable(obj) {
+
+        var values = [];
+        values.push(getValues(obj, 1));
+        values.push(getValues(obj, 2));
+        values.push(getValues(obj, 3));
+        return values;
+    }
+
+    function setValuesForm(values) {
+
+        [id, name, email] = values;
+
+        document.getElementById("inputDeletarID").value = id.trim(); // Removendo espaços
+        document.getElementById("inputDeletarName").value = name.trim();
+        document.getElementById("inputDeletarEmail").value = email.trim();
+
+    }
+</script>
