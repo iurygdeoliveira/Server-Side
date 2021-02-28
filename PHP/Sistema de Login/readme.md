@@ -69,6 +69,7 @@ Abraços !
 - Validação de login no front-end com jQuery
 - Validação de login no back-end com PHP
 - Flash Messages
+- CRUD de Usuários
 
 <small>Obs.: Este projeto estará em constante evolução, e receberá mais e mais funcionalidades com o tempo</small>
 </p>

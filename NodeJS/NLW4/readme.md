@@ -63,6 +63,8 @@ Acompanhar a NLW4 e exercitar a criação de uma API, criando endpoints utilizan
 16º yarn add @type/nodemailer -D
 
 17º yarn add handlebars
+
+18º yarn add yup
 # Criação das Migrations
 
 yarn typeorm migration:create -n CreateUsers
