@@ -30,11 +30,12 @@ $app->get('/exit', Admin::class . ":exit");
 
 // ADMIN USER ROUTES
 $app->get('/user', AdminUser::class . ":user");
-$app->post('/addUser', AdminUser::class . ":addUser");
-$app->post('/rmUser', AdminUser::class . ":rmUser");
+$app->post('/user/add', AdminUser::class . ":addUser");
+$app->post('/user/delete', AdminUser::class . ":rmUser");
+$app->post('/user/update', AdminUser::class . ":updateUser");
 
 // ERROR ROUTES
-$app->get('/erro', Home::class . ":error");
+$app->get('/error', Home::class . ":error");
 
 // Add Override verbs http
 $methodOverrideMiddleware = new MethodOverrideMiddleware();
@@ -45,7 +46,7 @@ $app->map(
     ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
     '/{routes:.+}',
     function ($resquest, $response) {
-        return redirect($response, '/erro');
+        return redirect($response, '/error');
     }
 );
 $app->run();

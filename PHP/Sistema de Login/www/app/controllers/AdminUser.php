@@ -14,10 +14,11 @@ class AdminUser extends Admin
         parent::__construct();
         $this->data += [
             'screen' => 'Usuário',
-            'dashboard' => false,
-            'user' => true,
-            'link_addUser' => url("addUser"), // Rota para adicionar novos usuários
-            'link_rmUser' => url("rmUser") // Rota para remover usuários
+            'dashboard' => false, // Desativar js especificos do dashboard
+            'user' => true, // Ativar js especificos para user
+            'link_addUser' => url("user/add"), // Rota para adicionar novos usuários
+            'link_rmUser' => url("user/delete"), // Rota para remover usuários
+            'link_updateUser' => url("user/update") // Rota para atualizar usuários
         ];
     }
 
@@ -30,6 +31,7 @@ class AdminUser extends Admin
 
         // Ativando classes específicas do CSS para renderizar os estilos na sidebar
         $this->data += [
+            'url' => url(),
             'flash' => getFlash(),
             'users' => $result // Usuários registrados no banco
 
@@ -53,7 +55,7 @@ class AdminUser extends Admin
 
         if ($error) {
             setFlash("error", "Campo obrigatório não informado");
-            return redirect($response, 'user');
+            return redirect($response, '/user');
         }
 
         // Filtrando Dados
@@ -65,13 +67,13 @@ class AdminUser extends Admin
         //Validando formato de email
         if (!is_email($email)) {
             setFlash("error", "Email informado inválido");
-            return redirect($response, 'user');
+            return redirect($response, '/user');
         }
 
         //Confirmando se pass e confirm são iguais
         if ($pass !== $confirm) {
             setFlash("error", "A senha e a confirmação devem ser iguais");
-            return redirect($response, 'user');
+            return redirect($response, '/user');
         }
 
         $user = new User();
@@ -79,7 +81,7 @@ class AdminUser extends Admin
 
         if ($result) {
             setFlash("error", "Email já cadastrado");
-            return redirect($response, 'user');
+            return redirect($response, '/user');
         } else {
             // realizar registro do usuario
             $result = $user->insertOne([
@@ -90,10 +92,10 @@ class AdminUser extends Admin
 
             if (!$result) {
                 setFlash("error", $user->getError());
-                return redirect($response, 'user');
+                return redirect($response, '/user');
             } else {
                 setFlash("success", "Usuário cadastrado");
-                return redirect($response, 'user');
+                return redirect($response, '/user');
             }
         }
     }
@@ -107,7 +109,7 @@ class AdminUser extends Admin
 
         if ($error) {
             setFlash("error", "Campo obrigatório não informado");
-            return redirect($response, 'user');
+            return redirect($response, '/user');
         }
 
         // Filtrando Dados
@@ -117,7 +119,7 @@ class AdminUser extends Admin
         //Validando formato de email
         if (!is_email($email)) {
             setFlash("error", "Email informado inválido");
-            return redirect($response, 'user');
+            return redirect($response, '/user');
         }
 
         $user = new User();
@@ -125,10 +127,52 @@ class AdminUser extends Admin
 
         if (!$result) {
             setFlash("error", $user->getError());
-            return redirect($response, 'user');
+            return redirect($response, '/user');
         } else {
             setFlash("success", "Usuário Deletado");
-            return redirect($response, 'user');
+            return redirect($response, '/user');
+        }
+    }
+
+    public function updateUser($request, $response)
+    {
+        // true = campos preenchidos
+        // false = campo obrigatório vazio
+        // Verificando Campos obrigatórios
+        $error = required(['id', 'email', 'name']);
+
+        if ($error) {
+            setFlash("error", "Campo obrigatório não informado");
+            return redirect($response, '/user');
+        }
+
+        // Filtrando Dados
+        $id = filterInput($_POST['id']);
+        $email = filterInput($_POST['email']);
+        $name = filterInput($_POST['name']);
+        $pass = filterInput($_POST['pass']);
+
+        //Validando formato de email
+        if (!is_email($email)) {
+            setFlash("error", "Email informado inválido");
+            return redirect($response, '/user');
+        }
+
+        $user = new User();
+        $result = $user->updateOne([
+            'id' => $id,
+            'name' => $name,
+            'email' => $email,
+            'pass' => $pass
+        ]);
+
+        if ($result) {
+            setFlash("success", "Usuário atualizado");
+            return redirect($response, '/user');
+        } else {
+            // realizar registro do usuario
+            setFlash("error", "Usuário não atualizado");
+            return redirect($response, '/user');
         }
     }
 }

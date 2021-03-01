@@ -1,7 +1,7 @@
 <script>
-    function fillTable(obj) {
+    function fillForm(obj, form) {
         var values = getValuesTable(obj);
-        setValuesForm(values);
+        setValuesForm(values, form);
     }
 
     function getValues(obj, param) {
@@ -17,13 +17,13 @@
         return values;
     }
 
-    function setValuesForm(values) {
+    function setValuesForm(values, form) {
 
         [id, name, email] = values;
 
-        document.getElementById("inputDeletarID").value = id.trim(); // Removendo espaços
-        document.getElementById("inputDeletarName").value = name.trim();
-        document.getElementById("inputDeletarEmail").value = email.trim();
+        document.getElementById("input" + form + "ID").value = id.trim(); // Removendo espaços
+        document.getElementById("input" + form + "Name").value = name.trim();
+        document.getElementById("input" + form + "Email").value = email.trim();
 
     }
 </script>

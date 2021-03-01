@@ -9,7 +9,7 @@ use RedBeanPHP\RedException;
 
 trait Update
 {
-    public function update(R $bean, array $data)
+    public function update($bean, array $data)
     {
 
         try {

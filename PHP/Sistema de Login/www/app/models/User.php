@@ -65,4 +65,18 @@ class User
             return false;
         }
     }
+
+    public function updateOne(array $data)
+    {
+        // Destructing
+
+        $bean = $this->selectOne('user', 'id = ?', $data['id']);
+
+        if (empty($data['pass'])) {
+            unset($data['pass']);
+        } else {
+            $data['pass'] = passwd($data['pass']);
+        }
+        return $this->update($bean, $data);
+    }
 }
