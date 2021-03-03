@@ -7,6 +7,9 @@ namespace app\traits;
 use RedBeanPHP\R;
 use RedBeanPHP\RedException;
 
+/**
+ * Realiza operação de inserção no banco de dados
+ */
 trait Create
 {
     public function insert(string $table, array $data, int $count)

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Comentário:
+ * 
+ * Arquivo index, realiza a gestão de todas da API
+ */
+
 declare(strict_types=1);
 session_start();
 ob_start();

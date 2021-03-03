@@ -6,16 +6,16 @@ namespace app\controllers;
 
 class Admin extends Base
 {
+    // Armazena os dados que serão enviados para a view
     protected $data;
-    /**
-     * Class constructor.
-     */
     public function __construct()
     {
+        // Inicializando os dados default que serão enviados para renderização nas views
         $this->data = [
             'title' => 'Dashboard',
             'sistema' => 'teste',
             'version' => '0.0.1',
+            'datetime' => date_fmt_br(),
             'year' => date('Y'),
             'link_admin' => url('admin'),
             'link_user' => url('user'),
@@ -25,6 +25,12 @@ class Admin extends Base
         ];
     }
 
+    /**
+     * Método responsável pela renderização da view dashboard
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function dashboard($request, $response)
     {
         // Ativando classes específicas do CSS para renderizar os estilos na sidebar
@@ -42,6 +48,12 @@ class Admin extends Base
         );
     }
 
+    /**
+     * Método que realiza o logout no sistema
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function exit($request, $response)
     {
         unset($_SESSION['user']['name']);

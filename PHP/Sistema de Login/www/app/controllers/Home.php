@@ -8,6 +8,12 @@ use app\classes\Flash;
 
 class Home extends Base
 {
+    /**
+     * Método que renderiza a view home
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function index($request, $response)
     {
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);
@@ -22,6 +28,12 @@ class Home extends Base
         );
     }
 
+    /**
+     * Método que renderiza a view de erro para rotas não encontradas
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function error($request, $response)
     {
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);

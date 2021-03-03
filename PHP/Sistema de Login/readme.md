@@ -10,9 +10,8 @@ realizar uma demonstração didática em como implementar um sistema de login.
 
 A ideia original aqui, não é propor um sistema de login para ser usado em ambiente de produção, mas exemplificar na prática como codificar um sistema utilizando princípios de boas práticas de programação, como clean code, SOLID, orientação a objetos entre outros. Porém os princípios utilizados aqui, podem sim ser aplicados em um sistema de produção real, desde que você faça as devidas adaptações.
 
-Como <b>objetivo secundário</b>, espera-se que qualquer um com um conhecimento
-prévio em programação, seja capaz de estudar e entender esse código sem 
-grandes dificuldades.
+Como <b>objetivo secundário</b>, espera-se que qualquer um, desde que possua conhecimentos
+prévios em programação, seja capaz de estudar e entender esse código sem grandes dificuldades.
 
 Sinta-se livre para submeter pull requests, com sugestões de melhoria :)
 
@@ -69,7 +68,7 @@ Abraços !
 - Validação de login no front-end com jQuery
 - Validação de login no back-end com PHP
 - Flash Messages
-- CRUD de Usuários
+- CRUD de Usuários do sistema
 
 <small>Obs.: Este projeto estará em constante evolução, e receberá mais e mais funcionalidades com o tempo</small>
 </p>

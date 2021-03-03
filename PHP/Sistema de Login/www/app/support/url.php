@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Function que constroi uma url
+ * 
  * @param string $path
  * @return string
  */
@@ -21,6 +23,8 @@ function url(string $path = null): string
 }
 
 /**
+ * Function que retornar a ultima url visitada
+ * 
  * @return string
  */
 function url_back(): string
@@ -29,6 +33,8 @@ function url_back(): string
 }
 
 /**
+ * Function que redireciona o usuário para a informada
+ * 
  * @param mixed $response resposta da requisição
  * @param mixed $to destino do redirecionamento
  * @param mixed $status código de status

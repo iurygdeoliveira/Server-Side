@@ -11,6 +11,7 @@ class AdminUser extends Admin
 
     public function __construct()
     {
+        // Inicializando os dados default que serão enviados para renderização nas views
         parent::__construct();
         $this->data += [
             'screen' => 'Usuário',
@@ -22,21 +23,27 @@ class AdminUser extends Admin
         ];
     }
 
+    /**
+     * Método que renderiza a view de usuários
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function user($request, $response)
     {
         $user = new User();
 
         // Obtendo usuários registrados no banco de dados
-        $result = $user->getAll();
+        $result = $user->getAll('user');
 
-        // Ativando classes específicas do CSS para renderizar os estilos na sidebar
         $this->data += [
             'url' => url(),
-            'flash' => getFlash(),
+            'flash' => getFlash(), // Obtendo flash messages se houver
             'users' => $result // Usuários registrados no banco
 
         ];
 
+        // Renderizando view para ser exibida ao usuário
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);
         return $this->getTwig()->render(
             $response,
@@ -45,7 +52,13 @@ class AdminUser extends Admin
         );
     }
 
-    public function addUser($request, $response, $args)
+    /**
+     * Método que realiza a adição de usuários no sistema
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
+    public function addUser($request, $response)
     {
 
         // true = campos preenchidos
@@ -76,6 +89,7 @@ class AdminUser extends Admin
             return redirect($response, '/user');
         }
 
+        // Inserindo usuario no Banco de Dados
         $user = new User();
         $result = $user->emailExist($email);
 
@@ -100,6 +114,12 @@ class AdminUser extends Admin
         }
     }
 
+    /**
+     * Método que realizar a remoção de usuários do banco
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function rmUser($request, $response)
     {
         // true = campos preenchidos
@@ -122,6 +142,7 @@ class AdminUser extends Admin
             return redirect($response, '/user');
         }
 
+        // Removendo usuários
         $user = new User();
         $result = $user->deleteByID($id);
 
@@ -134,6 +155,12 @@ class AdminUser extends Admin
         }
     }
 
+    /**
+     * Método que realiza atualizações no usuário
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function updateUser($request, $response)
     {
         // true = campos preenchidos
@@ -158,6 +185,7 @@ class AdminUser extends Admin
             return redirect($response, '/user');
         }
 
+        // Atualizando usuário
         $user = new User();
         $result = $user->updateOne([
             'id' => $id,

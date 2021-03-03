@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use app\classes\Flash;
 use app\models\User;
 
 class Login extends Base
 {
+    /**
+     * Método que renderiza a tela de login principal
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function index($request, $response)
     {
 
@@ -26,6 +31,12 @@ class Login extends Base
         );
     }
 
+    /**
+     * Método que renderiza a tela de recuperação de senha
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function forgot($request, $response)
     {
 
@@ -42,10 +53,17 @@ class Login extends Base
         );
     }
 
+    /**
+     * Método que valida o acesso do usuário ao sistema
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
     public function access($request, $response)
     {
         //true = campos preenchidos
         //false = campo obrigatório vazio
+        // Verificando campos obrigatórios
         $error = required(['email', 'senha']);
 
         if ($error) {
@@ -53,6 +71,7 @@ class Login extends Base
             return redirect($response, 'login');
         }
 
+        // Filtrando dados
         $email = filterInput($_POST['email']);
         $senha = filterInput($_POST['senha']);
 
@@ -62,6 +81,7 @@ class Login extends Base
             return redirect($response, 'login');
         }
 
+        // Validando dados
         $user = new User();
 
         $result = $user->emailExist($email);

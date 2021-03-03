@@ -7,6 +7,9 @@ namespace app\traits;
 use RedBeanPHP\R;
 use RedBeanPHP\RedException;
 
+/**
+ * Realiza exclusão no banco de dados
+ */
 trait Delete
 {
     public function delete($bean)

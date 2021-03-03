@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Function que verifica se um email é valido
+ * 
  * @param string $email
  * @return bool
  */
@@ -10,6 +12,8 @@ function is_email(string $email): bool
 }
 
 /**
+ * Function que verifica se uma senha é valida
+ * 
  * @param string $password
  * @return bool
  */
@@ -23,7 +27,9 @@ function is_passwd(string $password): bool
 }
 
 /**
- * @param array $fields
+ * Function que verifica os campos obrigatórios
+ * 
+ * @param array $fields campos a serem verificados
  * @return bool
  */
 function required(array $fields): bool
@@ -39,7 +45,12 @@ function required(array $fields): bool
     return $error;
 }
 
-function filterInput($field)
+/**
+ * Function que filtra um campo de entrada
+ *
+ * @param string $field campo a ser filtrado
+ */
+function filterInput(string $field)
 {
     return filter_var($field, FILTER_SANITIZE_STRING);
 }

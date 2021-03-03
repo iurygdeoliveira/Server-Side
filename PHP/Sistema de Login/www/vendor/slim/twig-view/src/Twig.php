@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Slim Framework (http://slimframework.com)
  *
@@ -66,7 +67,7 @@ class Twig implements ArrayAccess
         $twig = $request->getAttribute($attributeName);
         if ($twig === null || !($twig instanceof self)) {
             throw new RuntimeException(
-                'Twig could not be found in the server request attributes using the key "'. $attributeName .'".'
+                'Twig could not be found in the server request attributes using the key "' . $attributeName . '".'
             );
         }
 

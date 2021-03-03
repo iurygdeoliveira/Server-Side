@@ -8,6 +8,10 @@ use RedBeanPHP\R;
 use RedBeanPHP\RedException;
 use PDO;
 
+
+/**
+ * Realiza a conexão com o banco de dados
+ */
 trait Connection
 {
     public function connectDB()
@@ -24,7 +28,7 @@ trait Connection
             R::getDatabaseAdapter()->getDatabase()->stringifyFetches(FALSE);
             R::getDatabaseAdapter()->getDatabase()->getPDO()->setAttribute(PDO::ATTR_EMULATE_PREPARES, TRUE);
 
-            // Congelando o moodel, para evitar que o ORM
+            // Congelando o model, para evitar que o ORM
             // faça modificações no schema do banco
             R::freeze(TRUE);
         } catch (RedException $e) {

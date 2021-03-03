@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Function que encritpta a senha
+ * 
  * @param string $password
  * @return string
  */
@@ -10,20 +12,13 @@ function passwd(string $password): string
 }
 
 /**
- * @param string $password
- * @param string $hash
+ * Function que verifica se a senha é valida
+ * 
+ * @param string $password senha informada pelo usuaŕio
+ * @param string $hash senha salva no banco de dados para ser comparada
  * @return bool
  */
 function passwd_verify(string $password, string $hash): bool
 {
     return password_verify($password, $hash);
-}
-
-/**
- * @param string $hash
- * @return bool
- */
-function passwd_rehash(string $hash): bool
-{
-    return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
 }

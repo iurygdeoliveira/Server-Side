@@ -1,12 +1,25 @@
 <?php
 
 declare(strict_types=1);
-function setFlash($type, $text = '')
+
+/**
+ * Function que define a flash message
+ *
+ * @param string $type tipo de flash message
+ * @param string $text texto da flash message
+ */
+function setFlash(string $type, $text = '')
 {
     $_SESSION['flash'][$type] = $text;
 }
 
-function partialGetFlash($type)
+/**
+ * Function que constroi a flash message
+ *
+ * @param [type] $type
+ * @return array
+ */
+function buildFlashMessage($type): array
 {
 
     $msg = $_SESSION['flash'][$type];
@@ -17,22 +30,25 @@ function partialGetFlash($type)
     ];
 }
 
+/**
+ * Function que obtem a flash message
+ */
 function getFlash()
 {
     if (isset($_SESSION['flash']['error'])) {
-        return partialGetFlash('error');
+        return buildFlashMessage('error');
     }
 
     if (isset($_SESSION['flash']['success'])) {
-        return partialGetFlash('success');
+        return buildFlashMessage('success');
     }
 
     if (isset($_SESSION['flash']['warning'])) {
-        return partialGetFlash('warning');
+        return buildFlashMessage('warning');
     }
 
     if (isset($_SESSION['flash']['info'])) {
-        return partialGetFlash('info');
+        return buildFlashMessage('info');
     }
 
     return '';

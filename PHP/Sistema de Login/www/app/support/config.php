@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Este arquivo contém os principais parâmetros de configuração
+ * do sistema
+ */
+
 declare(strict_types=1);
 
 define("CONF_ROOT", dirname(__FILE__, 3));
@@ -29,15 +34,6 @@ define("CONF_PASSWD_MIN_LEN", 8);
 define("CONF_PASSWD_MAX_LEN", 40);
 define("CONF_PASSWD_ALGO", PASSWORD_DEFAULT);
 define("CONF_PASSWD_OPTION", ["cost" => 10]);
-
-/**
- * MESSAGE
- */
-define("CONF_MESSAGE_CLASS", "trigger");
-define("CONF_MESSAGE_INFO", "info");
-define("CONF_MESSAGE_SUCCESS", "success");
-define("CONF_MESSAGE_WARNING", "warning");
-define("CONF_MESSAGE_ERROR", "error");
 
 /**
  * VIEW
