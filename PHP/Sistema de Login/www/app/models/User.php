@@ -72,6 +72,33 @@ class User
     }
 
     /**
+     * Método que checa e insere um novo usuário no BD
+     *
+     * @param array $data dados do usuário para inserção
+     */
+    public function insertUser(array $data)
+    {
+
+        list($name, $email, $pass) = $data;
+
+        $result = $this->emailExist($email);
+
+        if ($result) {
+            $this->error = "Email já cadastrado";
+            return false;
+        }
+
+        $result = $this->insert('user', $data, 1);
+
+        if (empty($result)) {
+            $this->error = "Usuário não cadastrado";
+            return false;
+        } else {
+            return $result;
+        }
+    }
+
+    /**
      * Método que deleta um usuário pelo id
      *
      * @param string $id

@@ -7,7 +7,10 @@ namespace app\traits;
 use Slim\Views\Twig;
 use Exception;
 
-trait Template
+/**
+ * Trait com métodos utilizados na renderização das views
+ */
+trait RenderView
 {
     public function getTwig()
     {

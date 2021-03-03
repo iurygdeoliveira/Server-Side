@@ -26,6 +26,7 @@ trait Create
             $id = R::store($bean);
             return $id;
         } catch (RedException $e) {
+            //FIXME Registrar erros no sistemas log
             $this->error = $e->getMessage();
             return false;
         }

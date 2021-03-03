@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace app\controllers;;
+namespace app\controllers;
 
-use app\traits\Template;
+use app\traits\RenderView;
 
 abstract class Base
 {
-    use Template;
+    use RenderView;
 
     /**
      * Método que extrai o nome da classe

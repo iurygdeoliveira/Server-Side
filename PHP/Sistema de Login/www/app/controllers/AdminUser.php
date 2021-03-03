@@ -91,26 +91,21 @@ class AdminUser extends Admin
 
         // Inserindo usuario no Banco de Dados
         $user = new User();
-        $result = $user->emailExist($email);
+
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'pass' => passwd($pass)
+        ];
+
+        $result = $user->insertUser($data);
 
         if ($result) {
-            setFlash("error", "Email já cadastrado");
+            setFlash("success", "Usuário cadastrado");
             return redirect($response, '/user');
         } else {
-            // realizar registro do usuario
-            $result = $user->insertOne([
-                'name' => $name,
-                'email' => $email,
-                'pass' => passwd($pass)
-            ]);
-
-            if (!$result) {
-                setFlash("error", $user->getError());
-                return redirect($response, '/user');
-            } else {
-                setFlash("success", "Usuário cadastrado");
-                return redirect($response, '/user');
-            }
+            setFlash("error", $user->getError());
+            return redirect($response, '/user');
         }
     }
 
@@ -187,12 +182,15 @@ class AdminUser extends Admin
 
         // Atualizando usuário
         $user = new User();
-        $result = $user->updateOne([
+
+        $data = [
             'id' => $id,
             'name' => $name,
             'email' => $email,
             'pass' => $pass
-        ]);
+        ];
+
+        $result = $user->updateOne($data);
 
         if ($result) {
             setFlash("success", "Usuário atualizado");
