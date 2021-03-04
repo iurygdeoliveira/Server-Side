@@ -12,6 +12,7 @@ ob_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use app\classes\UserLogged;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\MethodOverrideMiddleware;
 use app\controllers\Home;
@@ -21,6 +22,9 @@ use app\controllers\AdminUser;
 
 $app = AppFactory::create();
 
+// USER LOGGED
+UserLogged::set('user', $_SESSION['user_logged_data'] ?? '');
+
 // WEB ROUTES
 $app->get('/', Home::class . ":index");
 
@@ -28,11 +32,11 @@ $app->get('/', Home::class . ":index");
 $app->get('/login', Login::class . ":index");
 $app->get('/recuperar', Login::class . ":forgot");
 $app->post('/access', Login::class . ":access");
+$app->get('/exit', Login::class . ":exit");
 
 // ADMIN ROUTES
 $app->post('/admin', Admin::class . ":dashboard");
 $app->get('/admin', Admin::class . ":dashboard");
-$app->get('/exit', Admin::class . ":exit");
 
 // ADMIN USER ROUTES
 $app->get('/user', AdminUser::class . ":user");
@@ -46,6 +50,14 @@ $app->get('/error', Home::class . ":error");
 // Add Override verbs http
 $methodOverrideMiddleware = new MethodOverrideMiddleware();
 $app->add($methodOverrideMiddleware);
+/**
+ * Exemplo: 
+ * 
+ * <form action="<url de destino> method="post" ">
+ *      <input type="hidden" name="_METHOD" value="DELETE"/>
+ *      <button type="submit" class="btn btn-danger"> Deletar </button>     
+ * </form>
+ */
 
 // ROUTES NOT FOUND
 $app->map(

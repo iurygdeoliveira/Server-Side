@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\traits;
 
+use app\classes\UserLogged;
 use Slim\Views\Twig;
 use Exception;
 
@@ -15,7 +16,9 @@ trait RenderView
     public function getTwig()
     {
         try {
-            return Twig::create(CONF_DIR_VIEWS);
+            $twig = Twig::create(CONF_DIR_VIEWS);
+            UserLogged::load($twig); // Registrando usuários logados
+            return $twig;
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }

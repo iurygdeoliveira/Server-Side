@@ -92,9 +92,26 @@ class Login extends Base
             setFlash("error", "Login Inválido");
             return redirect($response, 'login');
         } else {
+            // FIXME Melhorar lógica do usuário logado
             // Login efetuado
-            $_SESSION['user']['name'] = $result->name;
+            $_SESSION['user_logged_data'] = [
+                'id' => $result->id,
+                'name' => $result->name,
+                'email' => $result->email
+            ];
             return redirect($response, "admin");
         }
+    }
+
+    /**
+     * Método que realiza o logout no sistema
+     *
+     * @param mixed $request
+     * @param mixed $response
+     */
+    public function exit($request, $response)
+    {
+        unset($_SESSION['user_logged_data']);
+        return redirect($response, "/");
     }
 }
