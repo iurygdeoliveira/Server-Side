@@ -992,6 +992,7 @@ return array(
     'Symfony\\Component\\Finder\\Iterator\\FileTypeFilterIterator' => $vendorDir . '/symfony/finder/Iterator/FileTypeFilterIterator.php',
     'Symfony\\Component\\Finder\\Iterator\\FilecontentFilterIterator' => $vendorDir . '/symfony/finder/Iterator/FilecontentFilterIterator.php',
     'Symfony\\Component\\Finder\\Iterator\\FilenameFilterIterator' => $vendorDir . '/symfony/finder/Iterator/FilenameFilterIterator.php',
+    'Symfony\\Component\\Finder\\Iterator\\LazyIterator' => $vendorDir . '/symfony/finder/Iterator/LazyIterator.php',
     'Symfony\\Component\\Finder\\Iterator\\MultiplePcreFilterIterator' => $vendorDir . '/symfony/finder/Iterator/MultiplePcreFilterIterator.php',
     'Symfony\\Component\\Finder\\Iterator\\PathFilterIterator' => $vendorDir . '/symfony/finder/Iterator/PathFilterIterator.php',
     'Symfony\\Component\\Finder\\Iterator\\RecursiveDirectoryIterator' => $vendorDir . '/symfony/finder/Iterator/RecursiveDirectoryIterator.php',
@@ -1238,6 +1239,7 @@ return array(
     'Twig\\Util\\TemplateDirIterator' => $vendorDir . '/twig/twig/src/Util/TemplateDirIterator.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+    'app\\classes\\UserLogged' => $baseDir . '/app/classes/UserLogged.php',
     'app\\controllers\\Admin' => $baseDir . '/app/controllers/Admin.php',
     'app\\controllers\\AdminUser' => $baseDir . '/app/controllers/AdminUser.php',
     'app\\controllers\\Base' => $baseDir . '/app/controllers/Base.php',
@@ -1248,6 +1250,6 @@ return array(
     'app\\traits\\Create' => $baseDir . '/app/traits/Create.php',
     'app\\traits\\Delete' => $baseDir . '/app/traits/Delete.php',
     'app\\traits\\Read' => $baseDir . '/app/traits/Read.php',
-    'app\\traits\\Template' => $baseDir . '/app/traits/Template.php',
+    'app\\traits\\RenderView' => $baseDir . '/app/traits/RenderView.php',
     'app\\traits\\Update' => $baseDir . '/app/traits/Update.php',
 );

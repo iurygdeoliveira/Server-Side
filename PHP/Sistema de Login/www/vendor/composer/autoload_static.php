@@ -1264,6 +1264,7 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         'Symfony\\Component\\Finder\\Iterator\\FileTypeFilterIterator' => __DIR__ . '/..' . '/symfony/finder/Iterator/FileTypeFilterIterator.php',
         'Symfony\\Component\\Finder\\Iterator\\FilecontentFilterIterator' => __DIR__ . '/..' . '/symfony/finder/Iterator/FilecontentFilterIterator.php',
         'Symfony\\Component\\Finder\\Iterator\\FilenameFilterIterator' => __DIR__ . '/..' . '/symfony/finder/Iterator/FilenameFilterIterator.php',
+        'Symfony\\Component\\Finder\\Iterator\\LazyIterator' => __DIR__ . '/..' . '/symfony/finder/Iterator/LazyIterator.php',
         'Symfony\\Component\\Finder\\Iterator\\MultiplePcreFilterIterator' => __DIR__ . '/..' . '/symfony/finder/Iterator/MultiplePcreFilterIterator.php',
         'Symfony\\Component\\Finder\\Iterator\\PathFilterIterator' => __DIR__ . '/..' . '/symfony/finder/Iterator/PathFilterIterator.php',
         'Symfony\\Component\\Finder\\Iterator\\RecursiveDirectoryIterator' => __DIR__ . '/..' . '/symfony/finder/Iterator/RecursiveDirectoryIterator.php',
@@ -1510,6 +1511,7 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         'Twig\\Util\\TemplateDirIterator' => __DIR__ . '/..' . '/twig/twig/src/Util/TemplateDirIterator.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+        'app\\classes\\UserLogged' => __DIR__ . '/../..' . '/app/classes/UserLogged.php',
         'app\\controllers\\Admin' => __DIR__ . '/../..' . '/app/controllers/Admin.php',
         'app\\controllers\\AdminUser' => __DIR__ . '/../..' . '/app/controllers/AdminUser.php',
         'app\\controllers\\Base' => __DIR__ . '/../..' . '/app/controllers/Base.php',
@@ -1520,7 +1522,7 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         'app\\traits\\Create' => __DIR__ . '/../..' . '/app/traits/Create.php',
         'app\\traits\\Delete' => __DIR__ . '/../..' . '/app/traits/Delete.php',
         'app\\traits\\Read' => __DIR__ . '/../..' . '/app/traits/Read.php',
-        'app\\traits\\Template' => __DIR__ . '/../..' . '/app/traits/Template.php',
+        'app\\traits\\RenderView' => __DIR__ . '/../..' . '/app/traits/RenderView.php',
         'app\\traits\\Update' => __DIR__ . '/../..' . '/app/traits/Update.php',
     );
 

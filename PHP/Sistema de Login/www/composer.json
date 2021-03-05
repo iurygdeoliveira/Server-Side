@@ -10,12 +10,12 @@
         }
     ],
     "minimum-stability": "stable",
-    "autoload":{
-        "psr-4":{
+    "autoload": {
+        "psr-4": {
             "app\\": "app/",
             "public\\": "public/"
         },
-        "files":[
+        "files": [
             "app/support/config.php",
             "app/support/validate.php",
             "app/support/string.php",
@@ -39,5 +39,5 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.18"
-    }                                
+    }
 }

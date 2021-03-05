@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '8cda52c6316ba5816cab8ded675cc852666dd9e9',
+    'reference' => '92d713308de1a566247a8da6b369fdf9b8d41988',
     'name' => 'iuryprof/estudos_de_php',
   ),
   'versions' => 
@@ -54,12 +54,12 @@ private static $installed = array (
     ),
     'doctrine/annotations' => 
     array (
-      'pretty_version' => '1.12.0',
-      'version' => '1.12.0.0',
+      'pretty_version' => '1.12.1',
+      'version' => '1.12.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ebec9b1708c95d7602245c8172773f6b4e0c3be1',
+      'reference' => 'b17c5014ef81d212ac539f07a1001832df1b6d3b',
     ),
     'doctrine/lexer' => 
     array (
@@ -104,7 +104,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '8cda52c6316ba5816cab8ded675cc852666dd9e9',
+      'reference' => '92d713308de1a566247a8da6b369fdf9b8d41988',
     ),
     'league/csv' => 
     array (
@@ -305,12 +305,12 @@ private static $installed = array (
     ),
     'symfony/console' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '89d4b176d12a2946a1ae4e34906a025b7b6b135a',
+      'reference' => 'd6d0cc30d8c0fda4e7b213c20509b0159a8f4556',
     ),
     'symfony/deprecation-contracts' => 
     array (
@@ -323,12 +323,12 @@ private static $installed = array (
     ),
     'symfony/event-dispatcher' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4f9760f8074978ad82e2ce854dff79a71fe45367',
+      'reference' => 'd08d6ec121a425897951900ab692b612a61d6240',
     ),
     'symfony/event-dispatcher-contracts' => 
     array (
@@ -348,26 +348,26 @@ private static $installed = array (
     ),
     'symfony/filesystem' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '262d033b57c73e8b59cd6e68a45c528318b15038',
+      'reference' => '710d364200997a5afde34d9fe57bd52f3cc1e108',
     ),
     'symfony/finder' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4adc8d172d602008c204c2e16956f99257248e03',
+      'reference' => '0d639a0943822626290d169965804f79400e6a04',
     ),
     'symfony/options-resolver' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
@@ -447,8 +447,8 @@ private static $installed = array (
     ),
     'symfony/process' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
@@ -465,8 +465,8 @@ private static $installed = array (
     ),
     'symfony/stopwatch' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
@@ -474,12 +474,12 @@ private static $installed = array (
     ),
     'symfony/string' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c95468897f408dd0aca2ff582074423dd0455122',
+      'reference' => '4e78d7d47061fa183639927ec40d607973699609',
     ),
     'twig/twig' => 
     array (

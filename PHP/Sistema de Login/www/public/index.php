@@ -3,7 +3,7 @@
 /**
  * Comentário:
  * 
- * Arquivo index, realiza a gestão de todas da API
+ * Arquivo index, realiza a gestão de toda API
  */
 
 declare(strict_types=1);
@@ -19,6 +19,7 @@ use app\controllers\Home;
 use app\controllers\Login;
 use app\controllers\Admin;
 use app\controllers\AdminUser;
+use app\middlewares\Logged;
 
 $app = AppFactory::create();
 
@@ -35,14 +36,15 @@ $app->post('/access', Login::class . ":access");
 $app->get('/exit', Login::class . ":exit");
 
 // ADMIN ROUTES
-$app->post('/admin', Admin::class . ":dashboard");
-$app->get('/admin', Admin::class . ":dashboard");
+// Rotas que só podem ser acessadas se o usuário estiver logado
+$app->post('/admin', Admin::class . ":dashboard")->add(new Logged);
+$app->get('/admin', Admin::class . ":dashboard")->add(new Logged);
 
 // ADMIN USER ROUTES
-$app->get('/user', AdminUser::class . ":user");
-$app->post('/user/add', AdminUser::class . ":addUser");
-$app->post('/user/delete', AdminUser::class . ":rmUser");
-$app->post('/user/update', AdminUser::class . ":updateUser");
+$app->get('/user', AdminUser::class . ":user")->add(new Logged);;
+$app->post('/user/add', AdminUser::class . ":addUser")->add(new Logged);;
+$app->post('/user/delete', AdminUser::class . ":rmUser")->add(new Logged);;
+$app->post('/user/update', AdminUser::class . ":updateUser")->add(new Logged);;
 
 // ERROR ROUTES
 $app->get('/error', Home::class . ":error");
