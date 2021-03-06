@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use app\models\User;
+use Psr\Container\ContainerInterface;
 
 class AdminUser extends Admin
 {
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
         // Inicializando os dados default que serão enviados para renderização nas views
-        parent::__construct();
+        parent::__construct($container);
         $this->data += [
             'screen' => 'Usuário',
             'dashboard' => false, // Desativar js especificos do dashboard
@@ -42,6 +43,9 @@ class AdminUser extends Admin
             'users' => $result // Usuários registrados no banco
 
         ];
+
+        // Habilitando o cache
+        $response = $this->cacheWithEtag(__FUNCTION__, $this->container, $response);
 
         // Renderizando view para ser exibida ao usuário
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);

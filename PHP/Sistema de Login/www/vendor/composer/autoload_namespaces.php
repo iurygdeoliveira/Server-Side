@@ -6,5 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'League\\Monga' => array($vendorDir . '/league/monga/src'),
 );

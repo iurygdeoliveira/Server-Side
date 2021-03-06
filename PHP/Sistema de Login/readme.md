@@ -69,7 +69,8 @@ Abraços !
 - Validação de login no back-end com PHP
 - Flash Messages
 - CRUD de Usuários do sistema
-- Acesso as páginas do admin apenas para usuários logados
+- Acesso as páginas de administração apenas para usuários logados
+- Http Caching com etag
 
 <small>Obs.: Este projeto estará em constante evolução, e receberá mais e mais funcionalidades com o tempo</small>
 </p>
