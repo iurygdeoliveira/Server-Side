@@ -34,12 +34,10 @@ function url_back(): string
 
 /**
  * Function que redireciona o usuário para a informada
- * 
- * @param mixed $response resposta da requisição
- * @param mixed $to destino do redirecionamento
- * @param mixed $status código de status
+ *
+ * @param string $url destino do redirecionamento
  */
-function redirect($response, $to, $status = 200)
+function redirect(string $url)
 {
-    return $response->withHeader('location', $to)->withStatus($status);
+    return header("Location: $url");
 }

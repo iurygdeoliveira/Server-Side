@@ -9,6 +9,8 @@
             </div>
             <form action="{{link_addUser}}" method="post" id="formCadastrarUsuario" novalidate="novalidate">
                 <div class="modal-body">
+                    <input type="hidden" name="{{csrf.nameKey}}" value="{{csrf.name}}">
+                    <input type="hidden" name="{{csrf.valueKey}}" value="{{csrf.value}}">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nome Completo" name="name" id="name">
                         <div class="input-group-append">

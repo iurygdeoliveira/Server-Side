@@ -53,11 +53,13 @@ Abraços !
 <p>
 
 -   Docker
+-   Servidor Web Nginx
 -   PHP 7.4.11
+-   MySQL
 -   ORM redbeanPHP
 -   Slim 4
 -   Twig PHP
--   MySQL
+-   Injeção de Dependência com PHPDI;
    
 </p>
 
@@ -71,6 +73,7 @@ Abraços !
 - CRUD de Usuários do sistema
 - Acesso as páginas de administração apenas para usuários logados
 - Http Caching com etag
+- Proteção contra CSRF com Slim/CSRF
 
 <small>Obs.: Este projeto estará em constante evolução, e receberá mais e mais funcionalidades com o tempo</small>
 </p>

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '4eec208b4364e6bf62871bad07d82e28aacd1a18',
+    'reference' => '0c0059bbf49b95052d18f0df272d646a86a89069',
     'name' => 'iuryprof/estudos_de_php',
   ),
   'versions' => 
@@ -81,7 +81,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '4eec208b4364e6bf62871bad07d82e28aacd1a18',
+      'reference' => '0c0059bbf49b95052d18f0df272d646a86a89069',
     ),
     'nikic/fast-route' => 
     array (
@@ -243,6 +243,15 @@
       array (
       ),
       'reference' => '120b605dfeb996808c31b6477290a714d356e822',
+    ),
+    'slim/csrf' => 
+    array (
+      'pretty_version' => '1.2.1',
+      'version' => '1.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ee811a258ecee807846aefc51aabc1963ae0a400',
     ),
     'slim/http-cache' => 
     array (

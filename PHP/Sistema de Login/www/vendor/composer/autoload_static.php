@@ -64,6 +64,7 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
             'Slim\\Views\\' => 11,
             'Slim\\Psr7\\' => 10,
             'Slim\\HttpCache\\' => 15,
+            'Slim\\Csrf\\' => 10,
             'Slim\\' => 5,
         ),
         'R' => 
@@ -198,6 +199,10 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         'Slim\\HttpCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/http-cache/src',
+        ),
+        'Slim\\Csrf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/csrf/src',
         ),
         'Slim\\' => 
         array (
@@ -1032,6 +1037,7 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         'RedBeanPHP\\Util\\Tree' => __DIR__ . '/..' . '/gabordemooij/redbean/RedBeanPHP/Util/Tree.php',
         'Slim\\App' => __DIR__ . '/..' . '/slim/slim/Slim/App.php',
         'Slim\\CallableResolver' => __DIR__ . '/..' . '/slim/slim/Slim/CallableResolver.php',
+        'Slim\\Csrf\\Guard' => __DIR__ . '/..' . '/slim/csrf/src/Guard.php',
         'Slim\\Error\\AbstractErrorRenderer' => __DIR__ . '/..' . '/slim/slim/Slim/Error/AbstractErrorRenderer.php',
         'Slim\\Error\\Renderers\\HtmlErrorRenderer' => __DIR__ . '/..' . '/slim/slim/Slim/Error/Renderers/HtmlErrorRenderer.php',
         'Slim\\Error\\Renderers\\JsonErrorRenderer' => __DIR__ . '/..' . '/slim/slim/Slim/Error/Renderers/JsonErrorRenderer.php',
@@ -1504,8 +1510,10 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         'app\\controllers\\Login' => __DIR__ . '/../..' . '/app/controllers/Login.php',
         'app\\middlewares\\Logged' => __DIR__ . '/../..' . '/app/middlewares/Logged.php',
         'app\\models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
+        'app\\traits\\Cache' => __DIR__ . '/../..' . '/app/traits/Cache.php',
         'app\\traits\\Connection' => __DIR__ . '/../..' . '/app/traits/Connection.php',
         'app\\traits\\Create' => __DIR__ . '/../..' . '/app/traits/Create.php',
+        'app\\traits\\Csrf' => __DIR__ . '/../..' . '/app/traits/Csrf.php',
         'app\\traits\\Delete' => __DIR__ . '/../..' . '/app/traits/Delete.php',
         'app\\traits\\Read' => __DIR__ . '/../..' . '/app/traits/Read.php',
         'app\\traits\\RenderView' => __DIR__ . '/../..' . '/app/traits/RenderView.php',

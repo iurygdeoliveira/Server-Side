@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use app\models\User;
+use app\traits\Csrf;
 use Psr\Container\ContainerInterface;
 
 class AdminUser extends Admin
 {
+
+    use Csrf;
 
     public function __construct(ContainerInterface $container)
     {
@@ -32,6 +35,12 @@ class AdminUser extends Admin
      */
     public function user($request, $response)
     {
+        // Habilitando o cache
+        $response = $this->cacheWithEtag(__FUNCTION__, $this->container, $response);
+
+        // Habilitando o CSRF
+        $csrf = Csrf::getCsrf($request, $this->container->get('csrf'));
+
         $user = new User();
 
         // Obtendo usuários registrados no banco de dados
@@ -40,12 +49,9 @@ class AdminUser extends Admin
         $this->data += [
             'url' => url(),
             'flash' => getFlash(), // Obtendo flash messages se houver
-            'users' => $result // Usuários registrados no banco
-
+            'users' => $result, // Usuários registrados no banco
+            'csrf' => $csrf
         ];
-
-        // Habilitando o cache
-        $response = $this->cacheWithEtag(__FUNCTION__, $this->container, $response);
 
         // Renderizando view para ser exibida ao usuário
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);
@@ -65,6 +71,14 @@ class AdminUser extends Admin
     public function addUser($request, $response)
     {
 
+        // Verificando Código CSRF
+        $csrf = Csrf::validateCsrf($request);
+        if (!$csrf) {
+            setFlash("error", "Csrf inválido");
+            return redirect('/user');
+            var_dump("certo");
+        }
+
         // true = campos preenchidos
         // false = campo obrigatório vazio
         // Verificando Campos obrigatórios
@@ -72,7 +86,7 @@ class AdminUser extends Admin
 
         if ($error) {
             setFlash("error", "Campo obrigatório não informado");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
 
         // Filtrando Dados
@@ -84,13 +98,13 @@ class AdminUser extends Admin
         //Validando formato de email
         if (!is_email($email)) {
             setFlash("error", "Email informado inválido");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
 
         //Confirmando se pass e confirm são iguais
         if ($pass !== $confirm) {
             setFlash("error", "A senha e a confirmação devem ser iguais");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
 
         // Inserindo usuario no Banco de Dados
@@ -106,10 +120,10 @@ class AdminUser extends Admin
 
         if ($result) {
             setFlash("success", "Usuário cadastrado");
-            return redirect($response, '/user');
+            return redirect('/user');
         } else {
             setFlash("error", $user->getError());
-            return redirect($response, '/user');
+            return redirect('/user');
         }
     }
 
@@ -121,6 +135,15 @@ class AdminUser extends Admin
      */
     public function rmUser($request, $response)
     {
+
+        // Verificando Código CSRF
+        $csrf = Csrf::validateCsrf($request);
+        if (!$csrf) {
+            setFlash("error", "Csrf inválido");
+            return redirect('/user');
+            var_dump("certo");
+        }
+
         // true = campos preenchidos
         // false = campo obrigatório vazio
         // Verificando Campos obrigatórios
@@ -128,7 +151,7 @@ class AdminUser extends Admin
 
         if ($error) {
             setFlash("error", "Campo obrigatório não informado");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
 
         // Filtrando Dados
@@ -138,7 +161,7 @@ class AdminUser extends Admin
         //Validando formato de email
         if (!is_email($email)) {
             setFlash("error", "Email informado inválido");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
 
         // Removendo usuários
@@ -147,10 +170,10 @@ class AdminUser extends Admin
 
         if (!$result) {
             setFlash("error", $user->getError());
-            return redirect($response, '/user');
+            return redirect('/user');
         } else {
             setFlash("success", "Usuário Deletado");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
     }
 
@@ -162,6 +185,15 @@ class AdminUser extends Admin
      */
     public function updateUser($request, $response)
     {
+
+        // Verificando Código CSRF
+        $csrf = Csrf::validateCsrf($request);
+        if (!$csrf) {
+            setFlash("error", "Csrf inválido");
+            return redirect('/user');
+            var_dump("certo");
+        }
+
         // true = campos preenchidos
         // false = campo obrigatório vazio
         // Verificando Campos obrigatórios
@@ -169,7 +201,7 @@ class AdminUser extends Admin
 
         if ($error) {
             setFlash("error", "Campo obrigatório não informado");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
 
         // Filtrando Dados
@@ -181,7 +213,7 @@ class AdminUser extends Admin
         //Validando formato de email
         if (!is_email($email)) {
             setFlash("error", "Email informado inválido");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
 
         // Atualizando usuário
@@ -198,11 +230,11 @@ class AdminUser extends Admin
 
         if ($result) {
             setFlash("success", "Usuário atualizado");
-            return redirect($response, '/user');
+            return redirect('/user');
         } else {
             // realizar registro do usuario
             setFlash("error", "Usuário não atualizado");
-            return redirect($response, '/user');
+            return redirect('/user');
         }
     }
 }

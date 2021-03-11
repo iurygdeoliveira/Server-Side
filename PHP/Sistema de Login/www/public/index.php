@@ -21,20 +21,38 @@ use app\classes\UserLogged;
 use app\middlewares\Logged;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\MethodOverrideMiddleware;
+use Slim\Csrf\Guard;
 use Slim\HttpCache\Cache;
 use Slim\HttpCache\CacheProvider;
+use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
-// Habilitando Http Caching com Container
+// Criando container de injeção de dependências
 $container = new Container();
 AppFactory::setContainer($container);
+
+// Criando App
+$app = AppFactory::create();
+
+// // Habilitando Http Caching com Container
 $container->set('cache', function () {
     return new CacheProvider();
 });
 
-$app = AppFactory::create();
 
 // Register the http cache middleware.
-$app->add(new Cache('private', 10));
+$app->add(new Cache());
+
+//Habilitando Proteção contra CSRF
+$responseFactory = $app->getResponseFactory();
+$container->set('csrf', function () use ($responseFactory) {
+    $guard = new Guard($responseFactory);
+    $guard->setFailureHandler(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
+        $request = $request->withAttribute("csrf_status", false);
+        return $handler->handle($request);
+    });
+    return $guard;
+});
 
 // USER LOGGED
 UserLogged::set('user', $_SESSION['user_logged_data'] ?? '');
@@ -55,10 +73,10 @@ $app->get('/admin', Admin::class . ":dashboard")->add(new Logged);
 
 // ADMIN USER ROUTES
 // Só podem ser acessadas se o usuário estiver logado
-$app->get('/user', AdminUser::class . ":user")->add(new Logged);
-$app->post('/user/add', AdminUser::class . ":addUser")->add(new Logged);
-$app->post('/user/delete', AdminUser::class . ":rmUser")->add(new Logged);
-$app->post('/user/update', AdminUser::class . ":updateUser")->add(new Logged);
+$app->get('/user', AdminUser::class . ":user")->add(new Logged)->add('csrf');
+$app->post('/user/add', AdminUser::class . ":addUser")->add(new Logged)->add('csrf');
+$app->post('/user/delete', AdminUser::class . ":rmUser")->add(new Logged)->add('csrf');
+$app->post('/user/update', AdminUser::class . ":updateUser")->add(new Logged)->add('csrf');
 
 // ERROR ROUTES
 $app->get('/error', Home::class . ":error");

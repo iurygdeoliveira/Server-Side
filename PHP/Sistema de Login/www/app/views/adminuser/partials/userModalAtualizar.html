@@ -9,6 +9,8 @@
             </div>
             <form action="{{link_updateUser}}" method="post" id="formAtualizarUsuario" novalidate="novalidate">
                 <div class="modal-body">
+                    <input type="hidden" name="{{csrf.nameKey}}" value="{{csrf.name}}">
+                    <input type="hidden" name="{{csrf.valueKey}}" value="{{csrf.value}}">
                     <div class="form-group">
                         <label for="inputAtualizarID">ID</label>
                         <input type="text" class="form-control" name="id" id="inputAtualizarID" readonly>

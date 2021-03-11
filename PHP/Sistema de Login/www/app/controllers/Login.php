@@ -68,7 +68,7 @@ class Login extends Base
 
         if ($error) {
             setFlash("error", "Campo obrigatório não informado");
-            return redirect($response, 'login');
+            return redirect('/login');
         }
 
         // Filtrando dados
@@ -78,7 +78,7 @@ class Login extends Base
         //Validando formato de email
         if (!is_email($email)) {
             setFlash("error", "Email informado inválido");
-            return redirect($response, 'login');
+            return redirect('/login');
         }
 
         // Validando dados
@@ -90,7 +90,7 @@ class Login extends Base
         if (!$result || !$verifiedPass) {
 
             setFlash("error", "Login Inválido");
-            return redirect($response, 'login');
+            return redirect('/login');
         } else {
             // FIXME Melhorar lógica do usuário logado
             // Login efetuado
@@ -99,7 +99,7 @@ class Login extends Base
                 'name' => $result->name,
                 'email' => $result->email
             ];
-            return redirect($response, "admin");
+            return redirect("/admin");
         }
     }
 
@@ -112,6 +112,6 @@ class Login extends Base
     public function exit($request, $response)
     {
         unset($_SESSION['user_logged_data']);
-        return redirect($response, "/");
+        return redirect("/");
     }
 }

@@ -78,10 +78,9 @@ class User
      */
     public function insertUser(array $data)
     {
+        //list($name, $email, $pass) = $data;
 
-        list($name, $email, $pass) = $data;
-
-        $result = $this->emailExist($email);
+        $result = $this->emailExist($data['email']);
 
         if ($result) {
             $this->error = "Email já cadastrado";
