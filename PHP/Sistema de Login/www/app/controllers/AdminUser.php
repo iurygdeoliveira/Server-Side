@@ -76,7 +76,6 @@ class AdminUser extends Admin
         if (!$csrf) {
             setFlash("error", "Csrf inválido");
             return redirect('/user');
-            var_dump("certo");
         }
 
         // true = campos preenchidos
@@ -141,7 +140,6 @@ class AdminUser extends Admin
         if (!$csrf) {
             setFlash("error", "Csrf inválido");
             return redirect('/user');
-            var_dump("certo");
         }
 
         // true = campos preenchidos
@@ -191,7 +189,6 @@ class AdminUser extends Admin
         if (!$csrf) {
             setFlash("error", "Csrf inválido");
             return redirect('/user');
-            var_dump("certo");
         }
 
         // true = campos preenchidos

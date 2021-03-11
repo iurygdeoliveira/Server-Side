@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use app\models\User;
+use app\traits\Csrf;
 
 class Login extends Base
 {
@@ -16,6 +17,8 @@ class Login extends Base
      */
     public function index($request, $response)
     {
+        // Habilitando o CSRF
+        $csrf = Csrf::getCsrf($request, $this->container->get('csrf'));
 
         $nameView = $this->nameView(__CLASS__, __FUNCTION__);
         return $this->getTwig()->render(
@@ -26,7 +29,8 @@ class Login extends Base
                 'title' => 'Login',
                 'flash' => getFlash(),
                 'link_acesso' => url("access"),
-                'link_forgot' => url("recuperar")
+                'link_forgot' => url("recuperar"),
+                'csrf' => $csrf
             ]
         );
     }
@@ -61,6 +65,14 @@ class Login extends Base
      */
     public function access($request, $response)
     {
+
+        // Verificando Código CSRF
+        $csrf = Csrf::validateCsrf($request);
+        if (!$csrf) {
+            setFlash("error", "Csrf inválido");
+            return redirect('/login');
+        }
+
         //true = campos preenchidos
         //false = campo obrigatório vazio
         // Verificando campos obrigatórios

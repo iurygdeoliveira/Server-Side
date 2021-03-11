@@ -61,9 +61,9 @@ UserLogged::set('user', $_SESSION['user_logged_data'] ?? '');
 $app->get('/', Home::class . ":index");
 
 // LOGIN ROUTES
-$app->get('/login', Login::class . ":index");
+$app->get('/login', Login::class . ":index")->add('csrf');
 $app->get('/recuperar', Login::class . ":forgot");
-$app->post('/access', Login::class . ":access");
+$app->post('/access', Login::class . ":access")->add('csrf');
 $app->get('/exit', Login::class . ":exit");
 
 // ADMIN ROUTES

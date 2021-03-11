@@ -20,9 +20,10 @@
                 <p class="login-box-msg">Faça o login para acessar o sistema</p>
 
                 <form action="{{link_acesso}}" method="post" id="form" novalidate="novalidate">
+                    <input type="hidden" name="{{csrf.nameKey}}" value="{{csrf.name}}">
+                    <input type="hidden" name="{{csrf.valueKey}}" value="{{csrf.value}}">
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" name="email" id="email">
-
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
