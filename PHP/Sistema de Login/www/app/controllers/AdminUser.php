@@ -6,12 +6,15 @@ namespace app\controllers;
 
 use app\models\User;
 use app\traits\Csrf;
+use app\traits\Flash;
+use app\traits\Password;
+use app\traits\Validate;
 use Psr\Container\ContainerInterface;
 
 class AdminUser extends Admin
 {
 
-    use Csrf;
+    use Csrf, Flash, Validate, Password;
 
     public function __construct(ContainerInterface $container)
     {
@@ -21,9 +24,9 @@ class AdminUser extends Admin
             'screen' => 'Usuário',
             'dashboard' => false, // Desativar js especificos do dashboard
             'user' => true, // Ativar js especificos para user
-            'link_addUser' => url("user/add"), // Rota para adicionar novos usuários
-            'link_rmUser' => url("user/delete"), // Rota para remover usuários
-            'link_updateUser' => url("user/update") // Rota para atualizar usuários
+            'link_addUser' => $this->url("user/add"), // Rota para adicionar novos usuários
+            'link_rmUser' => $this->url("user/delete"), // Rota para remover usuários
+            'link_updateUser' => $this->url("user/update") // Rota para atualizar usuários
         ];
     }
 
@@ -47,8 +50,8 @@ class AdminUser extends Admin
         $result = $user->getAll('user');
 
         $this->data += [
-            'url' => url(),
-            'flash' => getFlash(), // Obtendo flash messages se houver
+            'url' => $this->url(),
+            'flash' => $this->getFlash(), // Obtendo flash messages se houver
             'users' => $result, // Usuários registrados no banco
             'csrf' => $csrf
         ];
@@ -74,36 +77,36 @@ class AdminUser extends Admin
         // Verificando Código CSRF
         $csrf = Csrf::validateCsrf($request);
         if (!$csrf) {
-            setFlash("error", "Csrf inválido");
-            return redirect('/user');
+            $this->setFlash("error", "Csrf inválido");
+            return $this->redirect('/user');
         }
 
         // true = campos preenchidos
         // false = campo obrigatório vazio
         // Verificando Campos obrigatórios
-        $error = required(['name', 'email', 'pass', 'confirm']);
+        $error = $this->required(['name', 'email', 'pass', 'confirm']);
 
         if ($error) {
-            setFlash("error", "Campo obrigatório não informado");
-            return redirect('/user');
+            $this->setFlash("error", "Campo obrigatório não informado");
+            return $this->redirect('/user');
         }
 
         // Filtrando Dados
-        $name = filterInput($_POST['name']);
-        $email = filterInput($_POST['email']);
-        $pass = filterInput($_POST['pass']);
-        $confirm = filterInput($_POST['confirm']);
+        $name = $this->filterInput($_POST['name']);
+        $email = $this->filterInput($_POST['email']);
+        $pass = $this->filterInput($_POST['pass']);
+        $confirm = $this->filterInput($_POST['confirm']);
 
         //Validando formato de email
-        if (!is_email($email)) {
-            setFlash("error", "Email informado inválido");
-            return redirect('/user');
+        if (!$this->$this->is_email($email)) {
+            $this->setFlash("error", "Email informado inválido");
+            return $this->redirect('/user');
         }
 
         //Confirmando se pass e confirm são iguais
         if ($pass !== $confirm) {
-            setFlash("error", "A senha e a confirmação devem ser iguais");
-            return redirect('/user');
+            $this->setFlash("error", "A senha e a confirmação devem ser iguais");
+            return $this->redirect('/user');
         }
 
         // Inserindo usuario no Banco de Dados
@@ -112,17 +115,17 @@ class AdminUser extends Admin
         $data = [
             'name' => $name,
             'email' => $email,
-            'pass' => passwd($pass)
+            'pass' => $this->passwd($pass)
         ];
 
         $result = $user->insertUser($data);
 
         if ($result) {
-            setFlash("success", "Usuário cadastrado");
-            return redirect('/user');
+            $this->setFlash("success", "Usuário cadastrado");
+            return $this->redirect('/user');
         } else {
-            setFlash("error", $user->getError());
-            return redirect('/user');
+            $this->setFlash("error", $user->getError());
+            return $this->redirect('/user');
         }
     }
 
@@ -138,28 +141,28 @@ class AdminUser extends Admin
         // Verificando Código CSRF
         $csrf = Csrf::validateCsrf($request);
         if (!$csrf) {
-            setFlash("error", "Csrf inválido");
-            return redirect('/user');
+            $this->setFlash("error", "Csrf inválido");
+            return $this->redirect('/user');
         }
 
         // true = campos preenchidos
         // false = campo obrigatório vazio
         // Verificando Campos obrigatórios
-        $error = required(['id', 'email', 'name']);
+        $error = $this->required(['id', 'email', 'name']);
 
         if ($error) {
-            setFlash("error", "Campo obrigatório não informado");
-            return redirect('/user');
+            $this->setFlash("error", "Campo obrigatório não informado");
+            return $this->redirect('/user');
         }
 
         // Filtrando Dados
-        $id = filterInput($_POST['id']);
-        $email = filterInput($_POST['email']);
+        $id = $this->filterInput($_POST['id']);
+        $email = $this->filterInput($_POST['email']);
 
         //Validando formato de email
-        if (!is_email($email)) {
-            setFlash("error", "Email informado inválido");
-            return redirect('/user');
+        if (!$this->is_email($email)) {
+            $this->setFlash("error", "Email informado inválido");
+            return $this->redirect('/user');
         }
 
         // Removendo usuários
@@ -167,11 +170,11 @@ class AdminUser extends Admin
         $result = $user->deleteByID($id);
 
         if (!$result) {
-            setFlash("error", $user->getError());
-            return redirect('/user');
+            $this->setFlash("error", $user->getError());
+            return $this->redirect('/user');
         } else {
-            setFlash("success", "Usuário Deletado");
-            return redirect('/user');
+            $this->setFlash("success", "Usuário Deletado");
+            return $this->redirect('/user');
         }
     }
 
@@ -187,30 +190,30 @@ class AdminUser extends Admin
         // Verificando Código CSRF
         $csrf = Csrf::validateCsrf($request);
         if (!$csrf) {
-            setFlash("error", "Csrf inválido");
-            return redirect('/user');
+            $this->setFlash("error", "Csrf inválido");
+            return $this->redirect('/user');
         }
 
         // true = campos preenchidos
         // false = campo obrigatório vazio
         // Verificando Campos obrigatórios
-        $error = required(['id', 'email', 'name']);
+        $error = $this->required(['id', 'email', 'name']);
 
         if ($error) {
-            setFlash("error", "Campo obrigatório não informado");
-            return redirect('/user');
+            $this->setFlash("error", "Campo obrigatório não informado");
+            return $this->redirect('/user');
         }
 
         // Filtrando Dados
-        $id = filterInput($_POST['id']);
-        $email = filterInput($_POST['email']);
-        $name = filterInput($_POST['name']);
-        $pass = filterInput($_POST['pass']);
+        $id = $this->filterInput($_POST['id']);
+        $email = $this->filterInput($_POST['email']);
+        $name = $this->filterInput($_POST['name']);
+        $pass = $this->filterInput($_POST['pass']);
 
         //Validando formato de email
-        if (!is_email($email)) {
-            setFlash("error", "Email informado inválido");
-            return redirect('/user');
+        if (!$this->is_email($email)) {
+            $this->setFlash("error", "Email informado inválido");
+            return $this->redirect('/user');
         }
 
         // Atualizando usuário
@@ -226,12 +229,12 @@ class AdminUser extends Admin
         $result = $user->updateOne($data);
 
         if ($result) {
-            setFlash("success", "Usuário atualizado");
-            return redirect('/user');
+            $this->setFlash("success", "Usuário atualizado");
+            return $this->redirect('/user');
         } else {
             // realizar registro do usuario
-            setFlash("error", "Usuário não atualizado");
-            return redirect('/user');
+            $this->setFlash("error", "Usuário não atualizado");
+            return $this->redirect('/user');
         }
     }
 }

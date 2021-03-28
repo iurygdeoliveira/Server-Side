@@ -6,9 +6,23 @@ namespace app\controllers;
 
 use app\models\User;
 use app\traits\Csrf;
+use app\traits\Flash;
+use app\traits\Url;
+use app\traits\Validate;
+use Psr\Container\ContainerInterface;
 
 class Login extends Base
 {
+    protected $container;
+
+    use Csrf, Url, Flash, Validate;
+
+    public function __construct(ContainerInterface $container)
+    {
+
+        $this->container = $container;
+    }
+
     /**
      * Método que renderiza a tela de login principal
      *
@@ -27,9 +41,9 @@ class Login extends Base
             [
                 'sistema' => 'teste',
                 'title' => 'Login',
-                'flash' => getFlash(),
-                'link_acesso' => url("access"),
-                'link_forgot' => url("recuperar"),
+                'flash' => $this->getFlash(),
+                'link_acesso' => $this->url("access"),
+                'link_forgot' => $this->url("recuperar"),
                 'csrf' => $csrf
             ]
         );
@@ -51,8 +65,8 @@ class Login extends Base
             [
                 'sistema' => 'teste',
                 'title' => 'Recuperar senha',
-                'link_recovery' => url("renovar"),
-                'link_login' => url("login"),
+                'link_recovery' => $this->url("renovar"),
+                'link_login' => $this->url("login"),
             ]
         );
     }
@@ -69,28 +83,28 @@ class Login extends Base
         // Verificando Código CSRF
         $csrf = Csrf::validateCsrf($request);
         if (!$csrf) {
-            setFlash("error", "Csrf inválido");
-            return redirect('/login');
+            $this->setFlash("error", "Csrf inválido");
+            return $this->redirect('/login');
         }
 
         //true = campos preenchidos
         //false = campo obrigatório vazio
         // Verificando campos obrigatórios
-        $error = required(['email', 'senha']);
+        $error = $this->required(['email', 'senha']);
 
         if ($error) {
-            setFlash("error", "Campo obrigatório não informado");
-            return redirect('/login');
+            $this->setFlash("error", "Campo obrigatório não informado");
+            return $this->redirect('/login');
         }
 
         // Filtrando dados
-        $email = filterInput($_POST['email']);
-        $senha = filterInput($_POST['senha']);
+        $email = $this->filterInput($_POST['email']);
+        $senha = $this->filterInput($_POST['senha']);
 
         //Validando formato de email
-        if (!is_email($email)) {
-            setFlash("error", "Email informado inválido");
-            return redirect('/login');
+        if (!$this->is_email($email)) {
+            $this->setFlash("error", "Email informado inválido");
+            return $this->redirect('/login');
         }
 
         // Validando dados
@@ -101,8 +115,8 @@ class Login extends Base
 
         if (!$result || !$verifiedPass) {
 
-            setFlash("error", "Login Inválido");
-            return redirect('/login');
+            $this->setFlash("error", "Login Inválido");
+            return $this->redirect('/login');
         } else {
             // FIXME Melhorar lógica do usuário logado
             // Login efetuado
@@ -111,7 +125,7 @@ class Login extends Base
                 'name' => $result->name,
                 'email' => $result->email
             ];
-            return redirect("/admin");
+            return $this->redirect("/admin");
         }
     }
 
@@ -124,6 +138,6 @@ class Login extends Base
     public function exit($request, $response)
     {
         unset($_SESSION['user_logged_data']);
-        return redirect("/");
+        return $this->redirect("/");
     }
 }

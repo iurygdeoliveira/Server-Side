@@ -6,11 +6,12 @@ namespace app\controllers;
 
 use Psr\Container\ContainerInterface;
 use app\traits\Cache;
+use app\traits\Url;
 
 class Admin extends Base
 {
 
-    use Cache;
+    use Cache, Url;
 
     // Armazena os dados que serão enviados para a view
     protected $data;
@@ -24,10 +25,10 @@ class Admin extends Base
             'sistema' => 'teste',
             'datetime' => date_fmt_br(),
             'year' => date('Y'),
-            'link_admin' => url('admin'),
-            'link_user' => url('user'),
-            'link_home' => url(),
-            'link_exit' => url('exit')
+            'link_admin' => $this->url('admin'),
+            'link_user' => $this->url('user'),
+            'link_home' => $this->url(),
+            'link_exit' => $this->url('exit')
         ];
 
         // Habilitando Cache através do container

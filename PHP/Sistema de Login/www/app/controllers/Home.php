@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use app\classes\Flash;
+use app\traits\Url;
 
 class Home extends Base
 {
+    use Url;
     /**
      * Método que renderiza a view home
      *
@@ -22,7 +23,7 @@ class Home extends Base
             $this->setView($nameView),
             [
                 'title' => 'Home',
-                'link_login' => url("login")
+                'link_login' => $this->url("login")
             ]
 
         );
@@ -42,7 +43,7 @@ class Home extends Base
             $this->setView($nameView),
             [
                 'title' => 'Erro',
-                'link_back' => url_back() // Retornando a pagina anterior
+                'link_back' => $this->url_back() // Retornando a pagina anterior
             ]
 
         );

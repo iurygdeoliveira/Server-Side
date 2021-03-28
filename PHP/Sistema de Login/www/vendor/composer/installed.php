@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '0c0059bbf49b95052d18f0df272d646a86a89069',
+    'reference' => '735dfeec98ff5f3d8dc54ace4dd5cb5f9e925295',
     'name' => 'iuryprof/estudos_de_php',
   ),
   'versions' => 
@@ -58,12 +58,12 @@
     ),
     'friendsofphp/php-cs-fixer' => 
     array (
-      'pretty_version' => 'v2.18.2',
-      'version' => '2.18.2.0',
+      'pretty_version' => 'v2.18.4',
+      'version' => '2.18.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '18f8c9d184ba777380794a389fabc179896ba913',
+      'reference' => '06f764e3cb6d60822d8f5135205f9d32b5508a31',
     ),
     'gabordemooij/redbean' => 
     array (
@@ -81,7 +81,16 @@
       'aliases' => 
       array (
       ),
-      'reference' => '0c0059bbf49b95052d18f0df272d646a86a89069',
+      'reference' => '735dfeec98ff5f3d8dc54ace4dd5cb5f9e925295',
+    ),
+    'monolog/monolog' => 
+    array (
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1cb1cde8e8dd0f70cc0fe51354a59acad9302084',
     ),
     'nikic/fast-route' => 
     array (
@@ -232,7 +241,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'ralouphie/getallheaders' => 
@@ -291,12 +301,12 @@
     ),
     'symfony/console' => 
     array (
-      'pretty_version' => 'v5.2.4',
-      'version' => '5.2.4.0',
+      'pretty_version' => 'v5.2.5',
+      'version' => '5.2.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd6d0cc30d8c0fda4e7b213c20509b0159a8f4556',
+      'reference' => '938ebbadae1b0a9c9d1ec313f87f9708609f1b79',
     ),
     'symfony/deprecation-contracts' => 
     array (

@@ -8,6 +8,9 @@ RUN apk add --no-cache php7-pdo php7-curl php7-bcmath php7-openssl php7-zip php7
 
 RUN docker-php-ext-install pdo_mysql intl opcache json mbstring sockets
 
+RUN pecl install mongodb
+RUN echo extension=mongodb.so >> /usr/local/etc/php/conf.d/pecl-php-mongodb.ini
+
 RUN apk add --no-cache $PHPIZE_DEPS \
     && pecl install xdebug-2.9.0 \
     && docker-php-ext-enable xdebug

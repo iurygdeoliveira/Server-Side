@@ -10,6 +10,7 @@ declare(strict_types=1);
 session_start();
 ob_start();
 
+// Autoload do Composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use DI\Container;
@@ -26,6 +27,13 @@ use Slim\HttpCache\Cache;
 use Slim\HttpCache\CacheProvider;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+// Criando sistema de log do sistema
+// FIXME Armazenando no MongoDB
+// $log = new Logger(CONF_SITE_NAME);
+// $log->pushHandler(new StreamHandler('logs/app.log'));
 
 // Criando container de injeção de dependências
 $container = new Container();
@@ -34,11 +42,10 @@ AppFactory::setContainer($container);
 // Criando App
 $app = AppFactory::create();
 
-// // Habilitando Http Caching com Container
+// Habilitando Http Caching com Container
 $container->set('cache', function () {
     return new CacheProvider();
 });
-
 
 // Register the http cache middleware.
 $app->add(new Cache());
