@@ -12,7 +12,7 @@ trait Validate
      * @param string $email
      * @return bool
      */
-    public function is_email(string $email): bool
+    public function is_email(string $email)
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }

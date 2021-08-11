@@ -7,11 +7,12 @@ namespace app\controllers;
 use Psr\Container\ContainerInterface;
 use app\traits\Cache;
 use app\traits\Url;
+use app\traits\Date;
 
 class Admin extends Base
 {
 
-    use Cache, Url;
+    use Cache, Url, Date;
 
     // Armazena os dados que serão enviados para a view
     protected $data;
@@ -23,7 +24,7 @@ class Admin extends Base
         $this->data = [
             'title' => 'Dashboard',
             'sistema' => 'teste',
-            'datetime' => date_fmt_br(),
+            'datetime' => $this->date_fmt_br(),
             'year' => date('Y'),
             'link_admin' => $this->url('admin'),
             'link_user' => $this->url('user'),

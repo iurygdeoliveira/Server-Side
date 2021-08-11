@@ -40,19 +40,19 @@ trait Flash
     public function getFlash()
     {
         if (isset($_SESSION['flash']['error'])) {
-            return buildFlashMessage('error');
+            return $this->buildFlashMessage('error');
         }
 
         if (isset($_SESSION['flash']['success'])) {
-            return buildFlashMessage('success');
+            return $this->buildFlashMessage('success');
         }
 
         if (isset($_SESSION['flash']['warning'])) {
-            return buildFlashMessage('warning');
+            return $this->buildFlashMessage('warning');
         }
 
         if (isset($_SESSION['flash']['info'])) {
-            return buildFlashMessage('info');
+            return $this->buildFlashMessage('info');
         }
 
         return '';

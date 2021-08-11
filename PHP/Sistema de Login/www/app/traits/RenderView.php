@@ -17,6 +17,7 @@ trait RenderView
     {
         try {
             $twig = Twig::create(CONF_DIR_VIEWS);
+
             UserLogged::load($twig); // Registrando usuários logados
             return $twig;
         } catch (Exception $e) {

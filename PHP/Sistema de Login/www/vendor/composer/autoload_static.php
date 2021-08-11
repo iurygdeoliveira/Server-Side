@@ -21,12 +21,6 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
         '64d26d7039bd26c80aac972f29d48dd5' => __DIR__ . '/../..' . '/app/support/config.php',
-        '96aa27809f3115c89be42ea1ee4b8974' => __DIR__ . '/../..' . '/app/support/validate.php',
-        'b12b0b67aa8f3e1ce5dd2b4a40ace974' => __DIR__ . '/../..' . '/app/support/string.php',
-        'db65a9f31fbc5672b364fda225155cb7' => __DIR__ . '/../..' . '/app/support/url.php',
-        '39656d8bacd026c75d6f6a4e4ecb049d' => __DIR__ . '/../..' . '/app/support/date.php',
-        'a9f416cd8db4f76929a3f88a639104cd' => __DIR__ . '/../..' . '/app/support/flash.php',
-        'af16f396c30a6fb321757e14f8905dcd' => __DIR__ . '/../..' . '/app/support/password.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -1634,10 +1628,16 @@ class ComposerStaticInitd62bd2ecc32df6d3ac73fde690044914
         'app\\traits\\Connection' => __DIR__ . '/../..' . '/app/traits/Connection.php',
         'app\\traits\\Create' => __DIR__ . '/../..' . '/app/traits/Create.php',
         'app\\traits\\Csrf' => __DIR__ . '/../..' . '/app/traits/Csrf.php',
+        'app\\traits\\Date' => __DIR__ . '/../..' . '/app/traits/Date.php',
         'app\\traits\\Delete' => __DIR__ . '/../..' . '/app/traits/Delete.php',
+        'app\\traits\\Flash' => __DIR__ . '/../..' . '/app/traits/Flash.php',
+        'app\\traits\\Password' => __DIR__ . '/../..' . '/app/traits/Password.php',
         'app\\traits\\Read' => __DIR__ . '/../..' . '/app/traits/Read.php',
         'app\\traits\\RenderView' => __DIR__ . '/../..' . '/app/traits/RenderView.php',
+        'app\\traits\\Strings' => __DIR__ . '/../..' . '/app/traits/Strings.php',
         'app\\traits\\Update' => __DIR__ . '/../..' . '/app/traits/Update.php',
+        'app\\traits\\Url' => __DIR__ . '/../..' . '/app/traits/Url.php',
+        'app\\traits\\Validate' => __DIR__ . '/../..' . '/app/traits/Validate.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

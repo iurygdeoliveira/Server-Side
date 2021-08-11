@@ -16,13 +16,7 @@
             "public\\": "public/"
         },
         "files": [
-            "app/support/config.php",
-            "app/support/validate.php",
-            "app/support/string.php",
-            "app/support/url.php",
-            "app/support/date.php",
-            "app/support/flash.php",
-            "app/support/password.php"
+            "app/support/config.php"
         ]
     },
     "require": {

@@ -19,6 +19,7 @@ use app\controllers\Login;
 use app\controllers\Admin;
 use app\controllers\AdminUser;
 use app\classes\UserLogged;
+use app\traits\Url;
 use app\middlewares\Logged;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\MethodOverrideMiddleware;
@@ -105,7 +106,7 @@ $app->map(
     ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
     '/{routes:.+}',
     function ($resquest, $response) {
-        return redirect($response, '/error');
+        return Url::redirect($response, '/error');
     }
 );
 $app->run();
